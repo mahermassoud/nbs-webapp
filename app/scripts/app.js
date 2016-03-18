@@ -26,6 +26,21 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/about', {
+        templateUrl: 'views/about.html',
+        controller: 'AboutCtrl',
+        controllerAs: 'about'
+      })
+      .when('/view', {
+        templateUrl: 'views/view.html',
+        controller: 'ViewCtrl',
+        controllerAs: 'view'
+      })
+      .when('/view/:networkId', {
+        templateUrl: 'views/view.html',
+        controller: 'ViewCtrl',
+        controllerAs: 'view'
+      })
       .otherwise({
         redirectTo: '/'
       });

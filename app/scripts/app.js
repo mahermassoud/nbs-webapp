@@ -17,7 +17,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'mgcrea.ngStrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -40,6 +41,21 @@ angular
         templateUrl: 'views/view.html',
         controller: 'ViewCtrl',
         controllerAs: 'view'
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
+      })
+      .when('/watchlist', {
+        templateUrl: 'views/watchlist.html',
+        controller: 'WatchlistCtrl',
+        controllerAs: 'watchlist'
+      })
+      .when('/watchlist/:listId', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'WatchlistCtrl',
+        controllerAs: 'watchlist'
       })
       .otherwise({
         redirectTo: '/'

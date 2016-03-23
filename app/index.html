@@ -9,18 +9,81 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="ndexCravatWebappApp">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-    <!-- Add your site or application content here -->
+
+
+  <!-- [1] Load MainCtrl -->
+  <body ng-app="ndexCravatWebappApp" ng-controller="MainCtrl">
+
+  <nav class="navbar navbar-inverse" role="navigation" ng-cloak>
+
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/view">NDEx Cravat</a>
+      </div>
+
+      <!-- Collect the nav links and other content for toggling -->
+      <div class="collapse navbar-collapse" id="main-nav">
+        <ul class="nav navbar-nav navbar-right">
+
+          <!-- [2] Add active class to necessary item -->
+          <li ng-class="{active: activeView === 'watchlist'}"
+              class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Networks <b class="caret"></b></a>
+
+            <ul class="dropdown-menu">
+              <li ng-if="!networklists.length" class="dropdown-header">
+                No lists found
+              </li>
+
+              <!-- [3] Create a unique link for each watchlist -->
+              <li ng-repeat="list in networklists track by $index">
+                <a href="/#/watchlist/{{list.id}}">{{list.name}}</a>
+              </li>
+            </ul>
+          </li>
+
+
+          <li ng-class="{active: activeView === 'dashboard'}">
+            <a href="#/dashboard">Dashboard</a>
+          </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+
+  </nav>
+
+  <!-- Main container -->
+  <div class="container-fluid" id="main">
+    <div ng-view=""></div>
+
+    <div class="footer">
+      <p>Built with <span class="glyphicon glyphicon-heart"></span></p>
+    </div>
+  </div>
+
+
+
+
+  <!--
+  <body ng-app="ndexCravatWebappApp">
+
+    <!-- Add your site or application content here --
     <div class="header">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
@@ -57,7 +120,7 @@
         <p>The NDEx Cravat WebApp</p>
       </div>
     </div>
-
+-->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -84,6 +147,9 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/cytoscape/dist/cytoscape.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -93,6 +159,10 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/view.js"></script>
         <script src="scripts/services/cy-service.js"></script>
+        <script src="scripts/services/networklistservice.js"></script>
+        <script src="scripts/directives/watch-networks-panel.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/watchlist.js"></script>
         <!-- endbuild -->
 </body>
 </html>

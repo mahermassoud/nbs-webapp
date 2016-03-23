@@ -11,13 +11,23 @@ angular.module('ndexCravatWebappApp')
   .controller('ViewCtrl', ['$http', '$scope', '$routeParams', 'cyService', function ($http, $scope, $routeParams, cyService) {
 
     $scope.viewer = {};
+    $scope.networkIDs = [
+      "9df5bc4a-efb3-11e5-9051-0660b7976219",
+      "9db7eff8-efb3-11e5-9051-0660b7976219",
+      "9d42e706-efb3-11e5-9051-0660b7976219",
+      "9ccd1ac4-efb3-11e5-9051-0660b7976219",
+      "9c84ee32-efb3-11e5-9051-0660b7976219",
+      "9c5811d0-efb3-11e5-9051-0660b7976219"
+    ];
+
+
 
     var viewer = $scope.viewer;
 
     viewer.foo = 'Test variable';
 
     // Hardwire network ID on dev2. Must be a public network.
-    viewer.networkUUID = '41dba984-e7e5-11e5-9c03-0660b7976219';
+    viewer.networkUUID = $scope.networkIDs[0];   //'41dba984-e7e5-11e5-9c03-0660b7976219';
     if ($routeParams.networkId) {
       viewer.networkUUID = $routeParams.networkId;
     }
@@ -98,7 +108,7 @@ angular.module('ndexCravatWebappApp')
 
     if (viewer.cyjsURL) {
 
-      cyService.initCyGraph();
+      //cyService.initCyGraph();
 
       $http.get(viewer.cyjsURL)
         .success(
@@ -107,17 +117,21 @@ angular.module('ndexCravatWebappApp')
 
           viewer.queryError = null;
 
-          viewer.hackCyjsData();
+          //viewer.hackCyjsData();
 
-          viewer.prettyCyjsStyle = JSON.stringify(viewer.cyjsData.style, null,'   ');
+          viewer.prettyCyjsStyle = JSON.stringify(viewer.cyjsData.style, null, '   ');
 
-          viewer.prettyCyjsNodes = JSON.stringify(viewer.cyjsData.elements.nodes, null,'   ');
+          viewer.prettyCyjsNodes = JSON.stringify(viewer.cyjsData.elements.nodes, null, '   ');
 
-          viewer.prettyCyjsEdges = JSON.stringify(viewer.cyjsData.elements.edges, null,'   ');
+          viewer.prettyCyjsEdges = JSON.stringify(viewer.cyjsData.elements.edges, null, '   ');
 
+
+          cyService.initCyGraph(cyService,cyjsData);
+
+/*
           // load data to cy-service
           cyService.setCyjsNetwork(cyjsData);
-
+*/
           var cyObject = cyService.getCy();
           //viewer.hackCy(cyObject);
 

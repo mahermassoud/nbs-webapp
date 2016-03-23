@@ -61,7 +61,7 @@ angular.module('ndexCravatWebappApp')
     /*-----------------------------------------------------------------------*
      * initialize the cytoscape instance
      *-----------------------------------------------------------------------*/
-    factory.initCyGraph = function () {
+    factory.initCyGraph = function (cyService, cyjsData) {
       var deferred = $q.defer();
 
 
@@ -75,9 +75,10 @@ angular.module('ndexCravatWebappApp')
       $(function () { // on dom ready
 
         cy = cytoscape({
-          container: document.getElementById('canvas'),
+          container: document.getElementById('cytoscape-canvas'),
 
           style: DEF_VISUAL_STYLE,
+
 
           layout: {
             name: 'cose',
@@ -88,6 +89,8 @@ angular.module('ndexCravatWebappApp')
 
           ready: function () {
             deferred.resolve(this);
+            // load data to cy-service
+            cyService.setCyjsNetwork(cyjsData);
 
           }
         });

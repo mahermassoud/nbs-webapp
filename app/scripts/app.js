@@ -27,11 +27,6 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
       .when('/view', {
         templateUrl: 'views/view.html',
         controller: 'ViewCtrl',
@@ -56,6 +51,11 @@ angular
         templateUrl: 'views/dashboard.html',
         controller: 'WatchlistCtrl',
         controllerAs: 'watchlist'
+      })
+      .when('/cravat', {
+        templateUrl: 'views/cravat.html',
+        controller: 'CravatCtrl',
+        controllerAs: 'cravat'
       })
       .otherwise({
         redirectTo: '/'

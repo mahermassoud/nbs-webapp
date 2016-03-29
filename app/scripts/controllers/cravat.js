@@ -21,7 +21,7 @@ angular.module('ndexCravatWebappApp')
 /*
           var req = {
               'method': 'POST',
-              'url': 'http://52.38.63.223/esets/cravat_nci/query',
+              'url': 'http://enrich.ndexbio.org/esets/cravat_nci/query',
               'headers': {
                   'Content-Type': 'application/json'
               },
@@ -30,7 +30,7 @@ angular.module('ndexCravatWebappApp')
 
 
 /*
-          $http({method: "GET", url: "http://52.38.63.223/hello/foo"}).then(
+          $http({method: "GET", url: "http://enrich.ndexbio.org/hello/foo"}).then(
               function success(data) {
                   var a = data;
                   var b = 10;
@@ -44,13 +44,13 @@ angular.module('ndexCravatWebappApp')
           $http({
               withCredentials: false,
               method: 'post',
-              url: 'http://52.38.63.223/esets/cravat_nci/query',
+              url: 'http://enrich.ndexbio.org/esets/cravat_nci/query',
               headers: {'Content-Type': 'application/json'},
               data: { 'ids': myJsonString }
           });
 
 */
-          $http.post('http://52.38.63.223/esets/cravat_nci/query',
+          $http.post('http://enrich.ndexbio.org/esets/cravat_nci/query',
               {'ids' : myJsonString}
           ).
               then(function(response) {
@@ -65,7 +65,7 @@ angular.module('ndexCravatWebappApp')
           /*
 
           $http.post({
-              url: "http://52.38.63.223/esets/cravat_nci/query",
+              url: "http://enrich.ndexbio.org/esets/cravat_nci/query",
               data: {"ids" : myJsonString},
               headers: {'Content-Type': 'application/json'}
           }).

@@ -20,7 +20,7 @@
                         <input type="text"
                                class="form-control"
                                id="network-name"
-                               placeholder="Name of the network, i.e., Small Corpus READ ONLY"
+                               placeholder="Name of network from Dev2/cravat account, i.e., Small Corpus READ ONLY"
                                ng-model="watchlist.name"
                                required>
                     </div>
@@ -32,7 +32,7 @@
                                class="form-control"
                                id="network-UUID"
                                maxlength="40"
-                               placeholder="UUID of the network, i.e., c10c19df-e2bd-11e5-ae41-06832d634f41"
+                               placeholder="UUID of network from Dev2/cravat account, i.e., c10c19df-e2bd-11e5-ae41-06832d634f41"
                                ng-model="watchlist.UUID"
                                required>
                     </div>
@@ -41,12 +41,15 @@
                 <div class="modal-footer">
                     <!-- [5] Create list on click, but disable if form is invalid -->
                     <button type="submit"
-                            class="btn btn-success"
-                            ng-click="createList()"
-                            ng-disabled="!listForm.$valid">Create</button>
+                            class="btn btn-success pull-left"
+                            ng-class="{'disabled' : !listForm.$valid}"
+                            ng-click="createList()">Create
+                    </button>
+                            <!--ng-disabled="!listForm.$valid">Create</button> -->
                     <button type="button"
-                            class="btn btn-danger"
-                            ng-click="$hide()">Cancel</button>
+                            class="btn btn-danger pull-left"
+                            ng-click="$hide()">Cancel
+                    </button>
                 </div>
             </form>
 

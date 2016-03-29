@@ -11,14 +11,6 @@ angular.module('ndexCravatWebappApp')
   .controller('ViewCtrl', ['$http', '$scope', '$routeParams', 'cyService', function ($http, $scope, $routeParams, cyService) {
 
     $scope.viewer = {};
-    $scope.networkIDs = [
-      "9df5bc4a-efb3-11e5-9051-0660b7976219",
-      "9db7eff8-efb3-11e5-9051-0660b7976219",
-      "9d42e706-efb3-11e5-9051-0660b7976219",
-      "9ccd1ac4-efb3-11e5-9051-0660b7976219",
-      "9c84ee32-efb3-11e5-9051-0660b7976219",
-      "9c5811d0-efb3-11e5-9051-0660b7976219"
-    ];
 
 
 

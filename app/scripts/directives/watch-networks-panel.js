@@ -24,6 +24,12 @@ angular.module('ndexCravatWebappApp')
             show: false
           });
 
+          var delNetworkModal = $modal({
+            scope: $scope,
+            template: 'views/templates/confirmationModal.html',
+            show: false
+          });
+
           // [3] Bind model from service to this scope
           $scope.watchlists = networkListService.query();
 
@@ -39,12 +45,24 @@ angular.module('ndexCravatWebappApp')
             $scope.watchlist = {};
           };
 
-          // [6] Delete desired list and redirect to home
-          $scope.deleteList = function (list) {
-            networkListService.remove(list);
-            $location.path('/');
-          };
 
+          // [6] Delete network object
+          $scope.deleteList = function (networkObj) {
+
+             $scope.title = "Delete Network";
+             $scope.message = "Delete network <strong>" + networkObj.name +   "</strong> ?";
+
+             delNetworkModal.$promise.then(delNetworkModal.show);
+
+             $scope.cancel = function() {
+                delNetworkModal.hide();
+             };
+
+             $scope.confirm = function() {
+                delNetworkModal.hide();
+                networkListService.remove(networkObj);
+             };
+          };
 
           $scope.currentList = $routeParams.listId;
 

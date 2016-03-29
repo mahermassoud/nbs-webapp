@@ -12,72 +12,36 @@ angular.module('ndexCravatWebappApp')
 
       //$scope.geneList = undefined;
 
+      $scope.rankedNetworksList = {};
+      var rankedNetworksList = $scope.rankedNetworksList;
+
+
       $scope.submit = function() {
 
           var list = this.geneList.split(',');
-          var myJsonString = JSON.stringify(list);
 
+          var myObj = {'ids': list };
+          var myJsonString = JSON.stringify(myObj);
 
-/*
           var req = {
               'method': 'POST',
               'url': 'http://enrich.ndexbio.org/esets/cravat_nci/query',
               'headers': {
                   'Content-Type': 'application/json'
               },
-              'data': { 'ids': myJsonString }
+              'data': myJsonString
           };
 
 
-/*
-          $http({method: "GET", url: "http://enrich.ndexbio.org/hello/foo"}).then(
-              function success(data) {
-                  var a = data;
-                  var b = 10;
-              },
-              function failed(error){
-                  var a = error;
-                  var b = 10;
-              });
-*/
-/*
-          $http({
-              withCredentials: false,
-              method: 'post',
-              url: 'http://enrich.ndexbio.org/esets/cravat_nci/query',
-              headers: {'Content-Type': 'application/json'},
-              data: { 'ids': myJsonString }
-          });
+          $http( req
 
-*/
-          $http.post('http://enrich.ndexbio.org/esets/cravat_nci/query',
-              {'ids' : myJsonString}
-          ).
-              then(function(response) {
-                  // success
-                  console.log(response);
-              },
-              function(response) { // optional
-                  // failed
-                  console.log(response);
-              });
+          ).success(
+              function( response ) {
+                  rankedNetworksList.responseJSON = JSON.stringify(response, null, '   ');
+                  var i = 10;
+              }
+          );
 
-          /*
-
-          $http.post({
-              url: "http://enrich.ndexbio.org/esets/cravat_nci/query",
-              data: {"ids" : myJsonString},
-              headers: {'Content-Type': 'application/json'}
-          }).
-              then(function(response) {
-                  // success
-                  var a = response;
-              },
-              function(response) { // optional
-                  // failed
-                  var b = response;
-              });
-           */
       };
 
         $scope.clearInput = function() {

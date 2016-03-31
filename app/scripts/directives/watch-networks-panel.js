@@ -49,8 +49,8 @@ angular.module('ndexCravatWebappApp')
           // [6] Delete network object
           $scope.deleteList = function (networkObj) {
 
-             $scope.title = "Delete Network";
-             $scope.message = "Delete network <strong>" + networkObj.name +   "</strong> ?";
+             $scope.title = 'Delete Network';
+             $scope.message = 'Delete network <strong>' + networkObj.name +   '</strong> ?';
 
              delNetworkModal.$promise.then(delNetworkModal.show);
 

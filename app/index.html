@@ -38,23 +38,6 @@
       <div class="collapse navbar-collapse" id="main-nav">
         <ul class="nav navbar-nav navbar-right">
 
-          <!-- [2] Add active class to necessary item -->
-          <li ng-class="{active: activeView === 'watchlist'}"
-              class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">Networks <b class="caret"></b></a>
-
-            <ul class="dropdown-menu">
-              <li ng-if="!networklists.length" class="dropdown-header">
-                No lists found
-              </li>
-
-              <!-- [3] Create a unique link for each watchlist -->
-              <li ng-repeat="list in networklists track by $index">
-                <a href="/#/watchlist/{{list.id}}">{{list.name}}</a>
-              </li>
-            </ul>
-          </li>
-
 
           <li ng-class="{active: activeView === 'cravat'}">
             <a href="#/cravat">Cravat</a>
@@ -112,10 +95,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/view.js"></script>
         <script src="scripts/services/cy-service.js"></script>
-        <script src="scripts/services/networklistservice.js"></script>
         <script src="scripts/directives/watch-networks-panel.js"></script>
-
-        <script src="scripts/controllers/watchlist.js"></script>
 
         <script src="scripts/controllers/cravat.js"></script>
         <!-- endbuild -->

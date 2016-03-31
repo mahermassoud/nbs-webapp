@@ -23,9 +23,9 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+          templateUrl: 'views/cravat.html',
+          controller: 'CravatCtrl',
+          controllerAs: 'cravat'
       })
       .when('/view', {
         templateUrl: 'views/view.html',
@@ -36,11 +36,6 @@ angular
         templateUrl: 'views/view.html',
         controller: 'ViewCtrl',
         controllerAs: 'view'
-      })
-      .when('/watchlist', {
-        templateUrl: 'views/watchlist.html',
-        controller: 'WatchlistCtrl',
-        controllerAs: 'watchlist'
       })
       .when('/cravat', {
         templateUrl: 'views/cravat.html',

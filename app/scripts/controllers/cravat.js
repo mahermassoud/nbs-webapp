@@ -14,16 +14,16 @@ ndexApp.controller('userController',
 */
 
 angular.module('ndexCravatWebappApp')
-  .controller('CravatCtrl', ['$scope', '$resource', '$routeParams', 'networkListService', '$http',
+  .controller('CravatCtrl', ['$scope', '$resource', '$routeParams', '$http',
 
-    function ($scope, $resource, $routeParams, networkListService, $http) {
+    function ($scope, $resource, $routeParams, $http) {
 
       $scope.rankedNetworksList = {};
       var rankedNetworksList = $scope.rankedNetworksList;
       rankedNetworksList.responseJSON = 'ABC10';
 
 
-        rankedNetworksList.submit = function() {
+        $scope.submit = function() {
 
           var list = rankedNetworksList.geneList.split(',');
 

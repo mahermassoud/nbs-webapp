@@ -7,18 +7,30 @@
  * # CravatCtrl
  * Controller of the ndexCravatWebappApp
  */
-angular.module('ndexCravatWebappApp')
-  .controller('CravatCtrl', function ($scope, $resource, $routeParams, networkListService, $http) {
+/*
+ndexApp.controller('userController',
+    ['ndexService', 'ndexUtility', 'sharedProperties', '$scope', '$location', '$routeParams', '$route', '$modal',
+        function (ndexService, ndexUtility, sharedProperties, $scope, $location, $routeParams, $route, $modal)
+*/
 
-      //$scope.geneList = undefined;
+angular.module('ndexCravatWebappApp')
+  .controller('CravatCtrl', ['$scope', '$resource', '$routeParams', 'networkListService', '$http',
+
+    function ($scope, $resource, $routeParams, networkListService, $http) {
 
       $scope.rankedNetworksList = {};
       var rankedNetworksList = $scope.rankedNetworksList;
+      rankedNetworksList.responseJSON = 'ABC10';
 
 
-      $scope.submit = function() {
+        rankedNetworksList.submit = function() {
 
-          var list = this.geneList.split(',');
+          var list = rankedNetworksList.geneList.split(',');
+
+          rankedNetworksList.responseJSON = 'DEFGHIJKLMNOP10';
+          console.log('in submit: rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
+            console.log('in submit: list.length = ' + list.length);
+          //console.log('in submit: rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
 
           var myObj = {'ids': list };
           var myJsonString = JSON.stringify(myObj);
@@ -37,14 +49,28 @@ angular.module('ndexCravatWebappApp')
 
           ).success(
               function( response ) {
-                  rankedNetworksList.responseJSON = JSON.stringify(response, null, '   ');
-                  var i = 10;
-              }
-          );
 
+                  //var rListValue1 = rankedNetworksList.responseJSON;
+                  //console.log('rListValue1 = ' + rListValue1);
+
+                  rankedNetworksList.responseJSON = JSON.stringify(response, null, '   ');
+                  console.log('received success, response=' + response);
+                  console.log('rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
+
+              }
+          ).error (
+              function( response ) {
+                  console.log('received error ' + response);
+                  //rankedNetworksList.responseJSON = "GHI";
+                  $scope.rankedNetworksList = 'GHI';
+                  //$scope.$apply();
+                  // var r = 10;
+              });
       };
 
         $scope.clearInput = function() {
             this.geneList = undefined;
+            rankedNetworksList.responseJSON = 'in clear';
+            console.log('in clear: rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
         };
-  });
+  }]);

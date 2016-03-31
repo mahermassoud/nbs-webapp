@@ -8,27 +8,26 @@
             </div>
 
             <div class="panel-body">
-                <form ng-submit="submit()" ng-controller="CravatCtrl" id="cravatCtrlForm">
-
+                <!--<form ng-submit="submit()" ng-controller="AnalysisCtrl" id="analysisCtrlForm">-->
                     <textarea
                             style="resize:none; width:100%"
                             rows="5"
-                            ng-model="geneList">
+                            ng-model="rankedNetworksList.geneList">
                     </textarea>
 
                     <input type="submit"
                            class="btn btn-default"
                            id="submit"
-                           ng-disabled="!geneList"
+                           ng-disabled="!rankedNetworksList.geneList"
+                           ng-click="submit()"
                            value="Submit" />
 
                     <input type="reset"
                            class="btn btn-default"
-                           ng-disabled="!geneList"
+                           ng-disabled="!rankedNetworksList.geneList"
                            value="Clear"
                            ng-click="clearInput()">
-
-                </form>
+               <!-- </form>-->
             </div>
 
         </div>
@@ -45,10 +44,9 @@
 
 
             <div class="panel-body">
-                <!--<h4>results of Cravat enrichment here</h4> -->
-
-                {{rankedNetworksList.responseJSON}}
-                <!--<div class="cytoscape-canvas" id="cytoscape-canvas"></div> -->
+               <pre>
+                  <span ng-bind-html="rankedNetworksList.responseJSON"></span>
+               </pre>
             </div>
 
 

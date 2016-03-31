@@ -23,14 +23,14 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-          templateUrl: 'views/cravat.html',
-          controller: 'CravatCtrl',
-          controllerAs: 'cravat'
+          templateUrl: 'views/analysis.html',
+          controller: 'AnalysisCtrl',
+          controllerAs: 'analysis'
       })
-      .when('/cravat', {
-        templateUrl: 'views/cravat.html',
-        controller: 'CravatCtrl',
-        controllerAs: 'cravat'
+      .when('/analysis', {
+          templateUrl: 'views/analysis.html',
+          controller: 'AnalysisCtrl',
+          controllerAs: 'analysis'
       })
       .otherwise({
         redirectTo: '/'

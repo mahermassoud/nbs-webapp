@@ -14,8 +14,8 @@ angular.module('ndexCravatWebappApp')
             return $location.path();
           },
           function (path) {
-            if (_.includes(path, 'cravat')) {
-              $scope.activeView = 'cravat';
+            if (_.includes(path, 'analysis')) {
+              $scope.activeView = 'analysis';
             }
           });
     });

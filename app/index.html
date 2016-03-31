@@ -20,7 +20,7 @@
 
 
   <!-- [1] Load MainCtrl -->
-  <body ng-app="ndexCravatWebappApp" ng-controller="MainCtrl">
+  <body ng-app="ndexCravatWebappApp">
 
   <nav class="navbar navbar-inverse" role="navigation" ng-cloak>
 
@@ -39,8 +39,8 @@
         <ul class="nav navbar-nav navbar-right">
 
 
-          <li ng-class="{active: activeView === 'cravat'}">
-            <a href="#/cravat">Cravat</a>
+          <li>
+            <a href="#/analysis">Analysis</a>
           </li>
 
         </ul>
@@ -92,9 +92,8 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
 
-        <script src="scripts/controllers/cravat.js"></script>
+        <script src="scripts/controllers/analysis.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -86,9 +86,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
           //console.log('in clear: rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
        };
 
-
        $scope.buildListOfEnrichedNetworks = function(response) {
-
 
           if ((!response) || (!response.scores)  || (response.scores.length === 0)) {
              return 'no networks found';
@@ -119,7 +117,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
                            '<strong>     Name : </strong>' + networkName + '<br />' +
                            '<strong>     UUID : </strong>' + networkUUID + '<br />' +
                            ((networkOverlap) ? ('<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
-                           '<strong> Retrieve : </strong><a href="' + networkUUID + '">Get Network in CX format</a>';
+                           '<strong> Retrieve : </strong><a href="http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX">Get Network in CX format</a>';
           }
 
           return list;

@@ -27,16 +27,6 @@ angular
           controller: 'CravatCtrl',
           controllerAs: 'cravat'
       })
-      .when('/view', {
-        templateUrl: 'views/view.html',
-        controller: 'ViewCtrl',
-        controllerAs: 'view'
-      })
-      .when('/view/:networkId', {
-        templateUrl: 'views/view.html',
-        controller: 'ViewCtrl',
-        controllerAs: 'view'
-      })
       .when('/cravat', {
         templateUrl: 'views/cravat.html',
         controller: 'CravatCtrl',

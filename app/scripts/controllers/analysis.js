@@ -117,7 +117,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
                            '<strong>     Name : </strong>' + networkName + '<br />' +
                            '<strong>     UUID : </strong>' + networkUUID + '<br />' +
                            ((networkOverlap) ? ('<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
-                           '<strong> Retrieve : </strong><a href="http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX">Get Network in CX format</a>';
+                           '<strong> Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX">Get Network in CX format</a>';
           }
 
           return list;

@@ -19,8 +19,6 @@ angular.module('ndexCravatWebappApp')
           function (path) {
             if (_.includes(path, 'watchlist')) {
               $scope.activeView = 'watchlist';
-            } else if (_.includes(path, 'dashboard')) {
-              $scope.activeView = 'dashboard';
             } else if (_.includes(path, 'cravat')) {
               $scope.activeView = 'cravat';
             }

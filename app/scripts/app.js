@@ -32,6 +32,11 @@ angular
           controller: 'AnalysisCtrl',
           controllerAs: 'analysis'
       })
+      .when('/visualize/:networkUUID', {
+        templateUrl: 'views/visualize.html',
+        controller: 'VisualizeCtrl',
+        controllerAs: 'visualize'
+      })
       .otherwise({
         redirectTo: '/'
       });

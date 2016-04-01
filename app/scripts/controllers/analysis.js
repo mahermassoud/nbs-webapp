@@ -7,13 +7,7 @@
  * # AnalysisCtrl
  * Controller of the ndexCravatWebappApp
  */
-/*
-ndexApp.controller('userController',
-    ['ndexService', 'ndexUtility', 'sharedProperties', '$scope', '$location', '$routeParams', '$route', '$modal',
-        function (ndexService, ndexUtility, sharedProperties, $scope, $location, $routeParams, $route, $modal)
-*/
-
-angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$http',
+angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
     function ($scope, $http) {
 
@@ -21,7 +15,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
        var rankedNetworksList = $scope.rankedNetworksList;
        rankedNetworksList.responseJSON = undefined;
 
-       rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2'; //undefined;
+       rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
 
        $scope.submit = function() {
 
@@ -30,14 +24,6 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
           for (var i = 0; i < list.length; i++) {
              list[i] = list[i].trim();
           }
-
-          //r = 'DEFGHIJKLMNOP10';
-          //rankedNetworksList.responseJSON = 'Response Has changed in submit()! Hurraaaah!';
-
-          //console.log('in submit: rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
-          //console.log('in submit: rankedNetworksList.geneList = ' + rankedNetworksList.geneList);
-          //console.log('in submit: list.length = ' + list.length);
-
 
           var myObj = {'ids': list };
           var myJsonString = JSON.stringify(myObj);
@@ -56,23 +42,15 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
           ).success(
               function( response ) {
 
-                 //var rListValue1 = rankedNetworksList.responseJSON;
-                 //console.log('rListValue1 = ' + rListValue1);
-
-
                  rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
-                 //JSON.stringify(response, null, '   ').trim();
 
-                 console.log('received success, response=' + response);
-                 //console.log('rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
               }
           ).error (
              function( response ) {
-                console.log('received error ' + response);
-                //rankedNetworksList.responseJSON = "GHI";
-                $scope.rankedNetworksList = 'GHI';
-                //$scope.$apply();
-                // var r = 10;
+
+                // process error here
+                console.log(response);
+
              }
           );
 
@@ -81,9 +59,6 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
        $scope.clearInput = function() {
           delete rankedNetworksList.geneList;
           delete rankedNetworksList.responseJSON;
-
-          //rankedNetworksList.responseJSON = 'just cleared contents';
-          //console.log('in clear: rankedNetworksList.responseJSON = ' + rankedNetworksList.responseJSON);
        };
 
        $scope.buildListOfEnrichedNetworks = function(response) {
@@ -117,10 +92,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl', ['$scope', '$ht
                            '<strong>     Name : </strong>' + networkName + '<br />' +
                            '<strong>     UUID : </strong>' + networkUUID + '<br />' +
                            ((networkOverlap) ? ('<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
-                           '<strong> Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX">Get Network in CX format</a>';
+                           '<strong> Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
+                                networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
+                           '<strong>Visualize : </strong><a href="#/visualize/' + networkUUID + '">View Network</a>';
           }
 
           return list;
        };
 
-   }]);
+   });

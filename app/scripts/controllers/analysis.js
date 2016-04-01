@@ -94,7 +94,8 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                            ((networkOverlap) ? ('<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
                            '<strong> Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
                                 networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
-                           '<strong>Visualize : </strong><a href="#/visualize/' + networkUUID + '">View Network</a>';
+                           '<strong>Visualize : </strong><a target="_blank" href="#/visualize/' + networkUUID + '">' +
+                               'View Network</a>';
           }
 
           return list;

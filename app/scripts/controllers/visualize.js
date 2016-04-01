@@ -8,7 +8,7 @@
  * Controller of the ndexCravatWebappApp
  */
 angular.module('ndexCravatWebappApp')
-  .controller('VisualizeCtrl', function ($routeParams, $http, $scope) {
+  .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService) {
 
       var networkUUID = $routeParams.networkUUID;
 
@@ -89,7 +89,7 @@ angular.module('ndexCravatWebappApp')
       );
 
       $scope.visualizeNetwork = function(networkAsCX) {
-         console.log('in visualizeNetwork');
+          cyService.initCyGraph(networkAsCX);
       };
 
   });

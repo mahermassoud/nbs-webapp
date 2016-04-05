@@ -8,7 +8,7 @@
  * Service in the ndexCravatWebappApp.
  */
 angular.module('ndexCravatWebappApp')
-    .factory('cyService', ['$q', function ($q) {
+    .factory('cyService', ['$q',  function ($q) {
 
       // Public API here: the factory object will be returned
       var factory = {};
@@ -62,8 +62,8 @@ angular.module('ndexCravatWebappApp')
        * initialize the cytoscape instance
        *-----------------------------------------------------------------------*/
       factory.initCyGraph = function (cyjsData) {
+        //var style = angular.toJson(cyjsData.style);
         var deferred = $q.defer();
-
 
         // elements
         /*
@@ -80,7 +80,7 @@ angular.module('ndexCravatWebappApp')
             container: document.getElementById('cytoscape-canvas'),
 
             style: DEF_VISUAL_STYLE,
-
+            //style: cyjsData.style,
 
             layout: {
               name: 'cose',
@@ -92,7 +92,7 @@ angular.module('ndexCravatWebappApp')
             ready: function () {
               deferred.resolve(this);
               // load data to cy-service
-              //cyService.setCyjsNetwork(cyjsData);
+              //this.setCyjsNetwork(cyjsData);
             }
           });
 
@@ -125,7 +125,7 @@ angular.module('ndexCravatWebappApp')
 
         // set the cytoscsape instance elements
         console.log('about to load elements');
-        cy.add(cyjsNetwork.elements);
+        //cy.add(cyjsNetwork.elements);
 
       };
 

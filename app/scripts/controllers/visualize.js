@@ -11,21 +11,13 @@ angular.module('ndexCravatWebappApp')
   .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService) {
 
       var networkUUID = $routeParams.networkUUID;
-
-      console.log('in VisualizeCtrl; network UUID = ' + networkUUID);
-
-
-      $scope.networkAsCX = {};
-      var networkAsCX = $scope.networkAsCX;
-      networkAsCX.network = undefined;
-
-      //var SERVICE_URL = 'http://192.168.99.100:3000/converter/cx2cyjs';
       var SERVICE_URL = 'http://ci-dev-serv.ucsd.edu:3001/cx2cyjs';
 
+      //console.log('in VisualizeCtrl; network UUID = ' + networkUUID);
 
       var req = {
         'method': 'GET',
-        'url': 'http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX',
+        'url': 'http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX'
       };
 
       $http( req
@@ -34,21 +26,17 @@ angular.module('ndexCravatWebappApp')
 
           function( response ) {
 
-            console.log('got Network as CX success!!!');
-
-            var networkAsCX = response;
+            //console.log('got Network as CX success!!!');
 
             req = {
               'method': 'POST',
               'url': SERVICE_URL,
-              data : angular.toJson(networkAsCX),
+              data : angular.toJson(response),
 
               'headers': {
                 'Content-Type': 'application/json'
               }
             };
-
-            //networkAsCX.network = response;
 
             $http( req
 
@@ -56,21 +44,16 @@ angular.module('ndexCravatWebappApp')
 
                 function( response ) {
 
-                    console.log('response success from Keis service!!!');
-
+                    //console.log('response success from Keis service!!!');
 
                     $scope.visualizeNetwork(response);
-                    //networkAsCX.network = response;
                 }
-
-
 
             ) .error (
 
                 function( response ) {
 
-                  console.log('response failed from Keis service!!! ' + response);
-
+                  //console.log('response failed from Keis service!!! ' + response);
 
                 }
             );
@@ -81,15 +64,14 @@ angular.module('ndexCravatWebappApp')
 
           function( response ) {
 
-            console.log('response failed!!!' + response);
-
-            delete networkAsCX.network;
+            //console.log('response failed!!!' + response);
 
           }
       );
 
-      $scope.visualizeNetwork = function(networkAsCX) {
-          cyService.initCyGraph(networkAsCX);
+      $scope.visualizeNetwork = function(networkAsCYJS) {
+          cyService.initCyGraph(networkAsCYJS);
+          //cyService.setCyjsNetwork(networkAsCYJS);
       };
 
   });

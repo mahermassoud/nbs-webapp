@@ -15,7 +15,8 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        var rankedNetworksList = $scope.rankedNetworksList;
        rankedNetworksList.responseJSON = undefined;
 
-       rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
+       //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
+       rankedNetworksList.geneList = 'AURKB, foo, BRCA1, PCNA, AKT1, ITGB2';
 
        $scope.submit = function() {
 
@@ -25,16 +26,16 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              list[i] = list[i].trim();
           }
 
-          var myObj = {'ids': list };
+          var myObj = {'ids': list, 'eset': 'rudi_test' };
           var myJsonString = JSON.stringify(myObj);
 
           var req = {
              'method': 'POST',
-             'url': 'http://enrich.ndexbio.org/esets/cravat_nci/query',
+             'url': 'http://enrich.ndexbio.org/enrich/v1/api/esets/query',
              'headers': {
                 'Content-Type': 'application/json'
              },
-              'data': myJsonString
+             'data': myJsonString
           };
 
           $http( req
@@ -74,17 +75,39 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              var networkName = scoreEntry.set_name;
              var networkUUID = scoreEntry.set_id;
              var networkPV   = scoreEntry.pv;
-             var networkOverlap;
+             var networkOverlap = '';
+
 
              if (scoreEntry.overlap) {
-                for (var j = 0; j < scoreEntry.overlap.length; j++) {
-                   networkOverlap = (networkOverlap) ?
-                       (networkOverlap + ', ' + scoreEntry.overlap[j]) :
-                       (scoreEntry.overlap[j]);
+
+                var allKeys = Object.keys(scoreEntry.overlap);
+
+                for (var j = 0; j <  allKeys.length; j++) {
+
+                   var value = allKeys[j];
+
+                    var arrayOfOverlappedIDs = scoreEntry.overlap[value];
+
+                    var stringOfOverlappedIDs = '';
+
+                    for (var k = 0; k < arrayOfOverlappedIDs.length; k++) {
+                        var overlappedID = arrayOfOverlappedIDs[k];
+
+                        if (k > 0) {
+                            stringOfOverlappedIDs = stringOfOverlappedIDs + ', ';
+                        }
+                        stringOfOverlappedIDs = stringOfOverlappedIDs + overlappedID;
+                    }
+
+                    if (j > 0) {
+                        networkOverlap = networkOverlap + ', ';
+                    }
+
+                    networkOverlap = networkOverlap + value + '(IDs: ' + stringOfOverlappedIDs + ')'
                 }
              }
 
-             if ( i > 0) {
+             if (i > 0) {
                 list = list + '<br /><br />';
              }
 

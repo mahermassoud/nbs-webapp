@@ -37,6 +37,11 @@ angular
         controller: 'VisualizeCtrl',
         controllerAs: 'visualize'
       })
+      .when('/viewnicecx/:networkUUID', {
+        templateUrl: 'views/nicecx.html',
+        controller: 'NiceCxCtrl',
+        controllerAs: 'niceCx'
+      })
       .otherwise({
         redirectTo: '/'
       });

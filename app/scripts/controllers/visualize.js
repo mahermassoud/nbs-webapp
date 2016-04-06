@@ -13,7 +13,7 @@ angular.module('ndexCravatWebappApp')
       var networkUUID = $routeParams.networkUUID;
       var SERVICE_URL = 'http://ci-dev-serv.ucsd.edu:3001/cx2cyjs';
 
-      //console.log('in VisualizeCtrl; network UUID = ' + networkUUID);
+      console.log('in VisualizeCtrl; network UUID = ' + networkUUID);
 
       var req = {
         'method': 'GET',
@@ -26,7 +26,7 @@ angular.module('ndexCravatWebappApp')
 
           function( response ) {
 
-            //console.log('got Network as CX success!!!');
+            console.log('got Network as CX success!!!');
 
             req = {
               'method': 'POST',
@@ -44,7 +44,7 @@ angular.module('ndexCravatWebappApp')
 
                 function( response ) {
 
-                    //console.log('response success from Keis service!!!');
+                    console.log('response success from Keis service!!!');
 
                     $scope.visualizeNetwork(response);
                 }
@@ -53,7 +53,7 @@ angular.module('ndexCravatWebappApp')
 
                 function( response ) {
 
-                  //console.log('response failed from Keis service!!! ' + response);
+                  console.log('response failed from Keis service!!! ' + response);
 
                 }
             );
@@ -64,7 +64,7 @@ angular.module('ndexCravatWebappApp')
 
           function( response ) {
 
-            //console.log('response failed!!!' + response);
+            console.log('response failed!!!' + response);
 
           }
       );

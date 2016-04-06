@@ -64,6 +64,9 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        $scope.buildListOfEnrichedNetworks = function(response) {
 
+           console.log('in buildListOfEnrichedNetworks');
+
+
           if ((!response) || (!response.scores)  || (response.scores.length === 0)) {
              return 'no networks found';
           }
@@ -103,7 +106,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                         networkOverlap = networkOverlap + ', ';
                     }
 
-                    networkOverlap = networkOverlap + value + '(IDs: ' + stringOfOverlappedIDs + ')'
+                    networkOverlap = networkOverlap + value + '(IDs: ' + stringOfOverlappedIDs + ')';
                 }
              }
 
@@ -114,9 +117,14 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              list = list + '<strong>       PV : </strong>' + networkPV   + '<br />' +
                            '<strong>     Name : </strong>' + networkName + '<br />' +
                            '<strong>     UUID : </strong>' + networkUUID + '<br />' +
+
                            ((networkOverlap) ? ('<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
                            '<strong> Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
                                 networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
+
+                           '<strong>Translate : </strong><a target="_blank" href="#/viewnicecx/' +
+                                networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
+
                            '<strong>Visualize : </strong><a target="_blank" href="#/visualize/' + networkUUID + '">' +
                                'View Network</a>';
           }

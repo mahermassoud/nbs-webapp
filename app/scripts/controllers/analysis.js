@@ -9,7 +9,7 @@
  */
 angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
-    function ($scope, $http) {
+    function ($scope, $http, sharedProperties) {
 
        $scope.rankedNetworksList = {};
        var rankedNetworksList = $scope.rankedNetworksList;
@@ -43,7 +43,10 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           ).success(
               function( response ) {
 
-                 rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
+                  rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
+                  var responseScores = {};
+                  responseScores = $scope.normalizeResponseScores(response.scores);
+                  sharedProperties.setResponseScores(responseScores);
 
               }
           ).error (
@@ -56,6 +59,26 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           );
 
        };
+
+        $scope.normalizeResponseScores = function(scores) {
+            var retScores = {};
+
+            if (!scores) {
+                return retScores;
+            }
+
+            for (var i = 0; i < scores.length; i++) {
+
+                var scoresObj = scores[i];
+                var key = scoresObj.set_id;
+
+                if (!(key in retScores)) {
+                    retScores[key] = scoresObj;
+                }
+            }
+
+            return retScores;
+        };
 
        $scope.clearInput = function() {
           delete rankedNetworksList.geneList;
@@ -122,7 +145,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                            '<strong> Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
                                 networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
 
-                           '<strong>Translate : </strong><a target="_blank" href="#/viewnicecx/' +
+                           '<strong>Translate : </strong><a href="#/viewnicecx/' +
                                 networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
 
                            '<strong>Visualize : </strong><a target="_blank" href="#/visualize/' + networkUUID + '">' +
@@ -131,5 +154,4 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
           return list;
        };
-
    });

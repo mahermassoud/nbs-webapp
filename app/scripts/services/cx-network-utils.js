@@ -8,33 +8,12 @@
  * Service in the ndexCravatWebappApp.
  */
 angular.module('ndexCravatWebappApp')
-  .service('cxNetworkUtils', function (sharedProperties) {
+  .service('cxNetworkUtils', function () {
       // AngularJS will instantiate a singleton by calling "new" on this function
 
-      this.rawCXtoNiceCX = function(rawCX, networkUUID) {
+      this.rawCXtoNiceCX = function(rawCX) {
 
           var niceCX = {};
-          var metadata1 = [];
-          var metadata2 = [];
-          var numberVerification = [];
-          var status;
-
-          console.log('in rawCXtoNiceCX');
-
-          rawCX = JSON.parse(JSON.stringify(rawCX));
-
-          var responseScores = sharedProperties.getResponseScores(networkUUID);
-
-          var overlappedIDs = [];
-          if (responseScores && responseScores.overlap) {
-              for (var key in responseScores.overlap) {
-                  var nodeIds = responseScores.overlap[key];
-
-                  for (var index in nodeIds) {
-                      overlappedIDs.push(nodeIds[index]);
-                  }
-              }
-          }
 
           for (var i = 0; i < rawCX.length; i++) {
               var fragment = rawCX[i];
@@ -46,19 +25,29 @@ angular.module('ndexCravatWebappApp')
 
                       if (aspectName === 'numberVerification') {
 
-                          numberVerification.push(fragment);
+                          if (!niceCX.numberVerification) {
+                              niceCX.numberVerification = fragment;
+                          }
+                          continue;
 
                       } else if (aspectName === 'status') {
 
-                          status = fragment;
+                          if (!niceCX.status) {
+                              niceCX.status = fragment;
+                          }
+                          continue;
 
                       } else if (aspectName === 'metaData') {
 
-                          if (metadata1.length === 0) {
-                              metadata1.push(fragment);
-                          } else {
-                              metadata2.push(fragment);
+                          if (!niceCX.preMetaData) {
+
+                              niceCX.preMetaData = fragment;
+
+                          } else if (!niceCX.postMetaData) {
+
+                              niceCX.postMetaData = fragment;
                           }
+                          continue;
                       }
 
                       for (var j = 0; j < elements.length; j++) {
@@ -68,29 +57,24 @@ angular.module('ndexCravatWebappApp')
                   }
               }
           }
-
-          this.markInQueryNodes(niceCX, overlappedIDs);
-
-          var backToRawCX = [];
-
-          backToRawCX.push(numberVerification[0]);
-          backToRawCX.push(metadata1[0]);
-
-          this.niceCXToRawCX(niceCX, backToRawCX);
-
-          backToRawCX.push(metadata2[0]);
-          backToRawCX.push(status);
-
           
-          return backToRawCX;
+          return niceCX;
       };
+      
+      this.niceCXToRawCX = function(niceCX, rawCX) {
 
+          if (niceCX.numberVerification) {
+              rawCX.push(niceCX.numberVerification);
+          }
 
-      this.niceCXToRawCX = function(niceCX, backToRawCX) {
+          if (niceCX.preMetaData) {
+              rawCX.push(niceCX.preMetaData);
+          }
 
           for (var aspectName in niceCX) {
-              if ((aspectName === 'metaData') || (aspectName === 'numberVerification') ||
-                  (aspectName === 'status')) {
+
+              if ((aspectName === 'preMetaData') || (aspectName === 'postMetaData') ||
+                  (aspectName === 'numberVerification') || (aspectName === 'status')) {
                   continue;
 
               } else if (aspectName === 'nodeAttributes') {
@@ -118,7 +102,7 @@ angular.module('ndexCravatWebappApp')
                               'nodeAttributes': [ nodeAttributeElement ]
                           };
 
-                          backToRawCX.push(fragment);
+                          rawCX.push(fragment);
                       }
                   }
 
@@ -134,34 +118,19 @@ angular.module('ndexCravatWebappApp')
                       fragment1[aspectName] = [];
                       fragment1[aspectName].push(element);
 
-                      backToRawCX.push(fragment1);
+                      rawCX.push(fragment1);
                   }
-                  
-
               }
-
-              console.log('aspectName=' + aspectName);
           }
 
-      };
-
-
-
-      // setNodeAttribute(nodeId, attributeName, attributeValue, attributeDataType)
-
-      this.markInQueryNodes = function(niceCX, overlappedIDs) {
-          if (!overlappedIDs) {
-              return;
+          if (niceCX.postMetaData) {
+              rawCX.push(niceCX.postMetaData);
           }
 
-          var dataType;
-
-          for (var i = 0; i < overlappedIDs.length; i++) {
-              var nodeId = overlappedIDs[i];
-              this.setNodeAttribute(niceCX, nodeId, "inQuery", 'true'   );
+          if (niceCX.status) {
+              rawCX.push(niceCX.status);
           }
       };
-
 
       this.setNodeAttribute = function(niceCX, nodeId, attributeName, attributeValue, attributeDataType) {
 
@@ -182,7 +151,6 @@ angular.module('ndexCravatWebappApp')
           niceCX.nodeAttributes.nodes[nodeId][attributeName] =  attributeObject;
       };
 
-
       var handleCxElement = function (aspectName, element, niceCX) {
 
           var aspect = niceCX[aspectName];
@@ -190,7 +158,6 @@ angular.module('ndexCravatWebappApp')
           if (aspectName === 'nodeAttributes') {
 
               if (!aspect) {
-                  // add aspect to niceCX
                   aspect = {nodes: {}};
 
                   niceCX[aspectName] = aspect;

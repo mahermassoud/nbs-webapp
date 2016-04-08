@@ -8,16 +8,20 @@
  * Controller of the ndexCravatWebappApp
  */
 angular.module('ndexCravatWebappApp')
-  .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService) {
+  .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService, webServices) {
 
       var networkUUID = $routeParams.networkUUID;
-      var SERVICE_URL = 'http://ci-dev-serv.ucsd.edu:3001/cx2cyjs';
+      
 
-      console.log('in VisualizeCtrl; network UUID = ' + networkUUID);
+      $scope.errorReceived = {};
+      var errorReceived = $scope.errorReceived;
+
+      $scope.responseReceived = {};
+      var responseReceived = $scope.responseReceived;
 
       var req = {
         'method': 'GET',
-        'url': 'http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX'
+        'url': webServices.getDev2NdexBioServiceURL() + '/' + networkUUID + '/asCX'
       };
 
       $http( req
@@ -26,17 +30,19 @@ angular.module('ndexCravatWebappApp')
 
           function( response ) {
 
-            console.log('got Network as CX success!!!');
+              var responseInJSON = angular.toJson(response);
 
             req = {
               'method': 'POST',
-              'url': SERVICE_URL,
-              data : angular.toJson(response),
+              'url': webServices.getCx2CyJsServiceURL(),
+              data : responseInJSON,
 
               'headers': {
                 'Content-Type': 'application/json'
               }
             };
+
+
 
             $http( req
 
@@ -44,7 +50,7 @@ angular.module('ndexCravatWebappApp')
 
                 function( response ) {
 
-                    console.log('response success from Keis service!!!');
+                    //console.log('response success from Keis service!!!');
 
                     $scope.visualizeNetwork(response);
                 }
@@ -53,7 +59,9 @@ angular.module('ndexCravatWebappApp')
 
                 function( response ) {
 
-                  console.log('response failed from Keis service!!! ' + response);
+                    errorReceived.message = 'Unable to convert Network in JSON to CYJS using<br /><br /> <strong>' +
+                        webServices.getCx2CyJsServiceURL() +
+                        '</strong> <br /><br />received this error : ' + response;
 
                 }
             );

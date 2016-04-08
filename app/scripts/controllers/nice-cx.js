@@ -8,43 +8,38 @@
  * Controller of the ndexCravatWebappApp
  */
 angular.module('ndexCravatWebappApp')
-  .controller('NiceCxCtrl', function ($scope, $routeParams, $http, cxNetworkUtils, cyService) {
+  .controller('NiceCxCtrl', function ($scope, $routeParams, $http, cxNetworkUtils, cyService, webServices) {
 
       var networkUUID = $routeParams.networkUUID;
 
-      //var networkInRawCX, networkInNiceCX;
-
       $scope.network = {};
       var network = $scope.network;
-      //rankedNetworksList.responseJSON = undefined;
 
 
-        console.log('in NiceCxCtrl; network UUID = ' + networkUUID);
+        //console.log('in NiceCxCtrl; network UUID = ' + networkUUID);
 
       var req = {
         'method': 'GET',
-        'url': 'http://dev2.ndexbio.org/rest/network/' + networkUUID + '/asCX'
+        'url': webServices.getDev2NdexBioServiceURL() + '/' + networkUUID + '/asCX'
       };
 
       $http( req
 
       ).success(
           function( response ) {
-              //
-              // network.networkInNiceCX = JSON.stringify(cxNetworkUtils.rawCXtoNiceCX(response, networkUUID), null, '  ');
-              network.networkWithProcessedCX =
-                  (JSON.stringify(cxNetworkUtils.rawCXtoNiceCX(response, networkUUID), null, 2)).trim();
-              network.networkInOriginalCX = response;
 
-              var SERVICE_URL = 'http://ci-dev-serv.ucsd.edu:3001/cx2cyjs';
+              network.niceCX =
+                  JSON.stringify(cxNetworkUtils.rawCXtoNiceCX(response), null, 2);
 
-              var postData = angular.toJson(network.networkWithProcessedCX);
 
+              /*
+              var postData = angular.toJson(network.niceCX);
+
+              /*
               req = {
                   'method': 'POST',
-                  'url': SERVICE_URL,
-                  //data : postData,
-                  data : angular.toJson(network.networkInOriginalCX),
+                  'url': webServices.getCx2CyJsServiceURL(),
+                  data : angular.toJson(network.rawCX),
 
                   'headers': {
                       'Content-Type': 'application/json'
@@ -70,10 +65,7 @@ angular.module('ndexCravatWebappApp')
 
                   }
               );
-
-
-
-
+              */
 
           }
       ).error (

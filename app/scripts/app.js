@@ -42,6 +42,16 @@ angular
         controller: 'NiceCxCtrl',
         controllerAs: 'niceCx'
       })
+      .when('/markNiceCX/:networkUUID', {
+        templateUrl: 'views/mark-nice-cx.html',
+        controller: 'MarkNiceCxCtrl',
+        controllerAs: 'markNiceCx'
+      })
+      .when('/niceCXtoRawCX/:networkUUID', {
+        templateUrl: 'views/nice-cx-to-raw-cx.html',
+        controller: 'NiceCxToRawCxCtrl',
+        controllerAs: 'niceCxToRawCx'
+      })
       .otherwise({
         redirectTo: '/'
       });

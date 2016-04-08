@@ -8,7 +8,7 @@
  * Controller of the ndexCravatWebappApp
  */
 angular.module('ndexCravatWebappApp')
-  .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService, webServices) {
+  .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService, webServices, utils, cxNetworkUtils) {
 
       var networkUUID = $routeParams.networkUUID;
       
@@ -30,12 +30,28 @@ angular.module('ndexCravatWebappApp')
 
           function( response ) {
 
-              var responseInJSON = angular.toJson(response);
+              //var rawCX = angular.toJson(response);
+
+
+              var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
+
+              utils.markInQueryNodes(niceCX, networkUUID);
+
+              var rawCX1 = [];
+              cxNetworkUtils.niceCXToRawCX(niceCX, rawCX1);
+
+              //var vis = JSON.stringify(rawCX, null, 2);
+
+              //$scope.visualizeNetwork(rawCX);
+
+
+              var URL = webServices.getCx2CyJsServiceURL();
+
 
             req = {
               'method': 'POST',
-              'url': webServices.getCx2CyJsServiceURL(),
-              data : responseInJSON,
+              'url': URL,
+              data : rawCX1,
 
               'headers': {
                 'Content-Type': 'application/json'
@@ -49,8 +65,6 @@ angular.module('ndexCravatWebappApp')
             ).success(
 
                 function( response ) {
-
-                    //console.log('response success from Keis service!!!');
 
                     $scope.visualizeNetwork(response);
                 }

@@ -154,7 +154,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                            '<strong>Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
                                 networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
 
-                           '<strong>        Visualize : </strong><a  target="_blank" href="#/visualize/' + networkUUID + '">' +
+                           '<strong>        Visualize : </strong><a href="#/visualize/' + networkUUID + '">' +
                                'View Network</a>';
           }
 

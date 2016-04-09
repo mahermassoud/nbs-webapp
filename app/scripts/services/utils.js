@@ -28,7 +28,7 @@ angular.module('ndexCravatWebappApp')
 
       for (var i = 0; i < overlappedIDs.length; i++) {
         var nodeId = overlappedIDs[i];
-        cxNetworkUtils.setNodeAttribute(niceCX, nodeId, "inQuery", 'true');
+        cxNetworkUtils.setNodeAttribute(niceCX, nodeId, 'inQuery', 'true');
       }
     };
   });

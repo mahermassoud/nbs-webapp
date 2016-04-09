@@ -61,7 +61,9 @@ angular.module('ndexCravatWebappApp')
           return niceCX;
       };
       
-      this.niceCXToRawCX = function(niceCX, rawCX) {
+      this.niceCXToRawCX = function(niceCX) {
+        
+        var rawCX = [];
 
           if (niceCX.numberVerification) {
               rawCX.push(niceCX.numberVerification);
@@ -130,6 +132,8 @@ angular.module('ndexCravatWebappApp')
           if (niceCX.status) {
               rawCX.push(niceCX.status);
           }
+        
+        return rawCX;
       };
 
       this.setNodeAttribute = function(niceCX, nodeId, attributeName, attributeValue, attributeDataType) {

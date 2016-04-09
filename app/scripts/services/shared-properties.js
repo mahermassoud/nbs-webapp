@@ -13,7 +13,7 @@ angular.module('ndexCravatWebappApp')
 
     return {
       getAllResponseScores: function () {
-          var responseScores = JSON.parse(sessionStorage.getItem("responseScores"));
+          var responseScores = JSON.parse(sessionStorage.getItem('responseScores'));
           return responseScores;
        },
 
@@ -24,7 +24,7 @@ angular.module('ndexCravatWebappApp')
 
       setResponseScores: function (responseScores) {
           var jsonObj = JSON.stringify(responseScores);
-          sessionStorage.setItem("responseScores", jsonObj);
+          sessionStorage.setItem('responseScores', jsonObj);
        }
     };
   });

@@ -10,9 +10,9 @@
             </div>
 
             <div class="panel-body">
-                <div ng-if="errorReceived.message" ng-bind-html="errorReceived.message" class="alert alert-danger"></div>
+                <div ng-if="visualizer.errorMessage" ng-bind-html="visualizer.errorMessage" class="alert alert-danger"></div>
 
-                <div ng-if="!errorReceived.message" class="cytoscape-canvas" id="cytoscape-canvas"></div>
+                <div ng-if="!visualizer.errorMessage" class="cytoscape-canvas" id="cytoscape-canvas"></div>
             </div>
 
         </div>

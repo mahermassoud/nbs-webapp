@@ -29,8 +29,7 @@ angular.module('ndexCravatWebappApp')
 
               utils.markInQueryNodes(niceCX, networkUUID);
 
-              var rawCX = [];
-              cxNetworkUtils.niceCXToRawCX(niceCX, rawCX);
+              var rawCX = cxNetworkUtils.niceCXToRawCX(niceCX);
 
               network.rawCXwithMarkedNodes = JSON.stringify(rawCX, null, 2);
           }

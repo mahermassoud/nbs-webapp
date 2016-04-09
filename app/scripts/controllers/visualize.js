@@ -10,90 +10,78 @@
 angular.module('ndexCravatWebappApp')
   .controller('VisualizeCtrl', function ($routeParams, $http, $scope, cyService, webServices, utils, cxNetworkUtils) {
 
-      var networkUUID = $routeParams.networkUUID;
-      
-
-      $scope.errorReceived = {};
-      var errorReceived = $scope.errorReceived;
-
-      $scope.responseReceived = {};
-      var responseReceived = $scope.responseReceived;
-
-      var req = {
-        'method': 'GET',
-        'url': webServices.getDev2NdexBioServiceURL() + '/' + networkUUID + '/asCX'
-      };
-
-      $http( req
-
-      ).success(
-
-          function( response ) {
-
-              //var rawCX = angular.toJson(response);
+    var networkUUID = $routeParams.networkUUID;
 
 
-              var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
+    $scope.visualizer = {};
+    var visualizer = $scope.visualizer;
 
-              utils.markInQueryNodes(niceCX, networkUUID);
+    visualizer.errorMessage = null;
 
-              var rawCX1 = [];
-              cxNetworkUtils.niceCXToRawCX(niceCX, rawCX1);
+    var req = {
+      'method': 'GET',
+      'url': webServices.getDev2NdexBioServiceURL() + '/' + networkUUID + '/asCX'
+    };
 
-              //var vis = JSON.stringify(rawCX, null, 2);
+    $http(req
+    ).success(
+      function (response) {
 
-              //$scope.visualizeNetwork(rawCX);
+        // response is a CX network
+        // First convert it to niceCX to make it easy to update attributes
+        var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
 
+        utils.markInQueryNodes(niceCX, networkUUID);
 
-              var URL = webServices.getCx2CyJsServiceURL();
+        //var modifiedCX = cxNetworkUtils.niceCXToRawCX(niceCX);
 
+        cyService.initCyGraphFromNiceCx(niceCX);
 
-            req = {
-              'method': 'POST',
-              'url': URL,
-              data : rawCX1,
-
-              'headers': {
-                'Content-Type': 'application/json'
-              }
-            };
-
+/*
+        var URL = webServices.getCx2CyJsServiceURL();
 
 
-            $http( req
+        req = {
+          'method': 'POST',
+          'url': URL,
+          data: angular.toJson(originalCX),
 
-            ).success(
+          'headers': {
+            'Content-Type': 'application/json'
+          }
+        };
 
-                function( response ) {
 
-                    $scope.visualizeNetwork(response);
-                }
+        $http(req
+        ).success(
+          function (response) {
 
-            ) .error (
+            //console.log(JSON.stringify(response));
 
-                function( response ) {
+            $scope.visualizeNetwork(response);
+          }
+        ).error(
+          function (response) {
 
-                    errorReceived.message = 'Unable to convert Network in JSON to CYJS using<br /><br /> <strong>' +
-                        webServices.getCx2CyJsServiceURL() +
-                        '</strong> <br /><br />received this error : ' + response;
+            console.log('Error querying cx2cys: ' + JSON.stringify(response));
 
-                }
-            );
+            visualizer.errorMessage = 'Unable to convert Network in JSON to CYJS using<br /><br /> <strong>' +
+              webServices.getCx2CyJsServiceURL() +
+              '</strong> <br /><br />received this error : ' + JSON.stringify(response);
 
           }
+        );
+*/
+      }
+    ).error(
+      function (response) {
 
-      ).error (
+        //console.log(JSON.stringify(response));
 
-          function( response ) {
+        console.log('Error querying NDEx: ' + JSON.stringify(response));
 
-            console.log('response failed!!!' + response);
+      }
+    );
 
-          }
-      );
-
-      $scope.visualizeNetwork = function(networkAsCYJS) {
-          cyService.initCyGraph(networkAsCYJS);
-          //cyService.setCyjsNetwork(networkAsCYJS);
-      };
 
   });

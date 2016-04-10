@@ -37,11 +37,10 @@ angular.module('ndexCravatWebappApp')
           selector: 'edge',
           style: {
             'line-color': '#aaaaaa',
-            'width': 1,
+            'width': '2px',
             'label': 'data(interaction)',
-            'font-size': '0.15em',
             'font-family': 'Roboto, sans-serif',
-            'text-opacity': 0.5
+            'text-opacity': 0.8
           }
         },
         {
@@ -58,6 +57,10 @@ angular.module('ndexCravatWebappApp')
           }
         }
       ];
+
+      factory.getDefaultStyle = function(){
+        return DEF_VISUAL_STYLE;
+      };
 
       var getCyAttributeName = function(attributeName, attributeNameMap){
 
@@ -82,7 +85,7 @@ angular.module('ndexCravatWebappApp')
 
       };
 
-      var cyElementsFromNiceCX = function(niceCX, attributeNameMap){
+      factory.cyElementsFromNiceCX = function(niceCX, attributeNameMap){
 
         var elements = {};
 
@@ -126,9 +129,9 @@ angular.module('ndexCravatWebappApp')
         }
 
         // handle cartesianCoordinates aspect
-        if (niceCX.cartesianCoordinates){
-          _.forEach(niceCX.cartesianCoordinates.elements, function(element){
-            var nodeId = element.po;
+        if (niceCX.cartesianLayout){
+          _.forEach(niceCX.cartesianLayout.elements, function(element){
+            var nodeId = element.node;
             var node = nodeMap[nodeId];
             node.position = {x: element.x, y: element.y};
           });
@@ -225,7 +228,7 @@ angular.module('ndexCravatWebappApp')
 
       };
 
-      var cyStyleFromNiceCX = function(niceCX, attributeNameMap){
+      factory.cyStyleFromNiceCX = function(niceCX, attributeNameMap){
         console.log('style from niceCX: ' + niceCX.length + ' ' + attributeNameMap.length);
         //#7 Opacity conversion
         //Need to convert from 0-255 to 0-1.
@@ -289,7 +292,7 @@ angular.module('ndexCravatWebappApp')
         return false;
       };
 
-      var allNodesHaveUniquePositions = function(cyElements){
+      factory.allNodesHaveUniquePositions = function(cyElements){
         var nodePositionMap = {};
         var nodes = cyElements.nodes;
         for (var nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++){
@@ -312,6 +315,7 @@ angular.module('ndexCravatWebappApp')
         return true;
 
       };
+
       /*-----------------------------------------------------------------------*
        * initialize the cytoscape instance from cyjsData
        *-----------------------------------------------------------------------*/
@@ -365,34 +369,9 @@ angular.module('ndexCravatWebappApp')
       /*-----------------------------------------------------------------------*
        * initialize the cytoscape instance from niceCX
        *-----------------------------------------------------------------------*/
-      factory.initCyGraphFromNiceCx = function (niceCX) {
+      factory.initCyGraphFromCyjsComponents = function (cyElements, cyLayout, cyStyle) {
 
         var deferred = $q.defer();
-
-        var layoutName = 'cose';
-
-        // This maps attribute names in niceCX to attribute names in cyjs.
-        // In some cases, such as 'id', 'source', and 'target', cyjs uses reserved names and
-        // any attribute names that conflict must be mapped.
-        // Also, cyjs requires that attribute names avoid special characters, so names with
-        // special characters must be transformed and mapped.
-        //
-        var attributeNameMap = {};
-
-        var cyElements = cyElementsFromNiceCX(niceCX, attributeNameMap);
-
-        var cyStyle = cyStyleFromNiceCX(niceCX, attributeNameMap);
-
-        if (!cyStyle){
-          cyStyle = DEF_VISUAL_STYLE;
-        }
-
-        if (allNodesHaveUniquePositions(cyElements)){
-          layoutName = 'preset';
-        }
-
-        var cyLayout = {name: layoutName};
-
 
         $(function () { // on dom ready
 

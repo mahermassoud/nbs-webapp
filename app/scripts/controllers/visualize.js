@@ -31,11 +31,42 @@ angular.module('ndexCravatWebappApp')
         // First convert it to niceCX to make it easy to update attributes
         var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
 
+        console.log(niceCX);
+
         utils.markInQueryNodes(niceCX, networkUUID);
 
         //var modifiedCX = cxNetworkUtils.niceCXToRawCX(niceCX);
+        var layoutName = 'cose';
 
-        cyService.initCyGraphFromNiceCx(niceCX);
+        // This maps attribute names in niceCX to attribute names in cyjs.
+        // In some cases, such as 'id', 'source', and 'target', cyjs uses reserved names and
+        // any attribute names that conflict must be mapped.
+        // Also, cyjs requires that attribute names avoid special characters, so names with
+        // special characters must be transformed and mapped.
+        //
+        var attributeNameMap = {};
+
+        var cyElements = cyService.cyElementsFromNiceCX(niceCX, attributeNameMap);
+
+        console.log(cyElements);
+
+        console.log(attributeNameMap);
+
+        var cyStyle = cyService.cyStyleFromNiceCX(niceCX, attributeNameMap);
+
+        if (!cyStyle){
+          cyStyle = cyService.getDefaultStyle();
+        }
+
+        if (cyService.allNodesHaveUniquePositions(cyElements)){
+          layoutName = 'preset';
+        }
+
+        var cyLayout = {name: layoutName};
+
+        cyService.initCyGraphFromCyjsComponents(cyElements, cyLayout, cyStyle);
+
+        console.log(cyService.getCy());
 
 /*
         var URL = webServices.getCx2CyJsServiceURL();

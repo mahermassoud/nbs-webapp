@@ -19,7 +19,12 @@ angular.module('ndexCravatWebappApp')
 
       getResponseScores: function (networkUUID) {
           var responseScores = this.getAllResponseScores();
+        if (responseScores){
           return responseScores[networkUUID];
+        } else {
+          return null;
+        }
+
       },
 
       setResponseScores: function (responseScores) {

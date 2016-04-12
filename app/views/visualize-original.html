@@ -1,0 +1,21 @@
+<div class="row">
+
+    <!-- One column only that takes all screen  -->
+    <div class="col-md-12">
+
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                Visualizing Original Network
+            </div>
+
+            <div class="panel-body">
+                <div ng-if="visualizer.errorMessage" ng-bind-html="visualizer.errorMessage" class="alert alert-danger"></div>
+
+                <div ng-if="!visualizer.errorMessage" class="cytoscape-canvas" id="cytoscape-canvas"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

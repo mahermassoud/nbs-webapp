@@ -17,6 +17,18 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
        rankedNetworksList.geneList = 'AURKB, foo, BRCA1, PCNA, AKT1, ITGB2';
+       rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
+        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
+/*
+ rankedNetworksList.eSets = [{
+ 'label': 'cravat_nci',
+ 'value': 'cravat_nci'
+ }, {
+ 'label': 'rudi_test',
+ 'value': 'rudi_test'
+ }];
+
+ */
 
        $scope.submit = function() {
 
@@ -26,7 +38,9 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              list[i] = list[i].trim();
           }
 
-          var myObj = {'ids': list, 'eset': 'rudi_test' };
+          //var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
+          var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
+
           var myJsonString = JSON.stringify(myObj);
 
           var req = {
@@ -83,6 +97,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        $scope.clearInput = function() {
           delete rankedNetworksList.geneList;
           delete rankedNetworksList.responseJSON;
+          rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
        };
 
        $scope.buildListOfEnrichedNetworks = function(response) {
@@ -137,24 +152,29 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                 list = list + '<br /><br />';
              }
 
-             list = list + '<strong>               PV : </strong>' + networkPV   + '<br />' +
-                           '<strong>             Name : </strong>' + networkName + '<br />' +
-                           '<strong>             UUID : </strong>' + networkUUID + '<br />' +
+             list = list + '<strong>                PV : </strong>' + networkPV   + '<br />' +
+                           '<strong>              Name : </strong>' + networkName + '<br />' +
+                           '<strong>              UUID : </strong>' + networkUUID + '<br />' +
 
-     ((networkOverlap) ? ( '<strong>          Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
-                           '<strong>         Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
-                                networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
+     ((networkOverlap) ? ( '<strong>           Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
 
-                           '<strong>        Translate : </strong><a  target="_blank" href="#/viewnicecx/' +
-                                networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
 
-                           '<strong>        Mark Nodes: </strong><a  target="_blank" href="#/markNiceCX/' +
-                                networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
+                     //      '<strong>          Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
+                     //           networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
 
-                           '<strong>Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
-                                networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
+                    //       '<strong>         Translate : </strong><a  target="_blank" href="#/viewnicecx/' +
+                    //            networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
 
-                           '<strong>        Visualize : </strong><a href="#/visualize/' + networkUUID + '">' +
+                    //       '<strong>        Mark Nodes : </strong><a target="_blank" href="#/markNiceCX/' +
+                    //            networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
+
+                    //       '<strong> Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
+                    //            networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
+
+                   //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
+                   //            'View Original Network</a>' + '<br />' +
+
+                           '<strong> Visualize Network : </strong><a href="#/visualizeEnriched/' + networkUUID + '">' +
                                'View Network</a>';
           }
 

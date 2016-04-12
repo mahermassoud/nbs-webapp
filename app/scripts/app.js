@@ -32,11 +32,6 @@ angular
           controller: 'AnalysisCtrl',
           controllerAs: 'analysis'
       })
-      .when('/visualize/:networkUUID', {
-        templateUrl: 'views/visualize.html',
-        controller: 'VisualizeCtrl',
-        controllerAs: 'visualize'
-      })
       .when('/viewnicecx/:networkUUID', {
         templateUrl: 'views/nicecx.html',
         controller: 'NiceCxCtrl',
@@ -51,6 +46,16 @@ angular
         templateUrl: 'views/nice-cx-to-raw-cx.html',
         controller: 'NiceCxToRawCxCtrl',
         controllerAs: 'niceCxToRawCx'
+      })
+      .when('/visualizeOriginal/:networkUUID', {
+        templateUrl: 'views/visualize-original.html',
+        controller: 'VisualizeOriginalCtrl',
+        controllerAs: 'visualizeOriginal'
+      })
+      .when('/visualizeEnriched/:networkUUID', {
+        templateUrl: 'views/visualize-enriched.html',
+        controller: 'VisualizeEnrichedCtrl',
+        controllerAs: 'visualizeEnriched'
       })
       .otherwise({
         redirectTo: '/'

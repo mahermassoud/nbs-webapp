@@ -4,7 +4,7 @@
         <div class="panel panel-info">
 
             <div class="panel-heading">
-                Gene List for Cravat
+                Find Related Networks by Gene List
             </div>
 
             <div class="panel-body">
@@ -15,12 +15,20 @@
                             ng-model="rankedNetworksList.geneList">
                     </textarea>
 
+                    <div>Networks to Search</div>
+                
+                    <select class="form-control input-md" ng-model="rankedNetworksList.eSetSelected">
+                         <option ng-repeat="eset in rankedNetworksList.eSets" value="{{eset}}">{{eset}}</option>
+                    </select>
+
+
                     <input type="submit"
                            class="btn btn-default"
                            id="submit"
                            ng-disabled="!rankedNetworksList.geneList"
                            ng-click="submit()"
                            value="Submit" />
+
 
                     <input type="reset"
                            class="btn btn-default"
@@ -36,14 +44,16 @@
     <!-- Right Column -->
     <div class="col-md-9">
 
+        <!--
         <div>
-          <strong>Visualize Test : </strong><a href="#/visualize/ceabdd01-fdd1-11e5-a5bc-0660b7976219">' + "a6b1 and a6b4" </a>'
+          <strong>Visualize Test : </strong>
+          <a target="_blank" href="#/visualizeOriginal/ceabdd01-fdd1-11e5-a5bc-0660b7976219">' + "a6b1 and a6b4" </a>'
         </div>
-
+         -->
         <div class="panel panel-info">
 
             <div class="panel-heading">
-                Ranked List Of Networks From Cravat
+                Ranked List Of Related Networks
             </div>
 
 

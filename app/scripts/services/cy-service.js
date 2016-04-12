@@ -102,11 +102,11 @@ angular.module('ndexCravatWebappApp')
           _.forEach(niceCX.nodes.elements, function(nodeElement){
             var cxNodeId = nodeElement['@id'];
             var nodeData = {'id': cxNodeId};
-            if (nodeElement.name){
-              nodeData.name = nodeElement.name;
+            if (nodeElement.n){
+              nodeData['name'] = nodeElement.n;
             }
-            if (nodeElement.represents){
-              nodeData.represents = nodeElement.represents;
+            if (nodeElement.r){
+              nodeData.represents = nodeElement.r;
             }
             nodeMap[cxNodeId] = {data: nodeData};
           });

@@ -16,7 +16,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        rankedNetworksList.responseJSON = undefined;
 
        //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
-       rankedNetworksList.geneList = 'AURKB, foo, BRCA1, PCNA, AKT1, ITGB2';
+       rankedNetworksList.geneList = 'AURKB, BRCA1, PCNA, AKT1, ITGB2';
 
         // eSets should be filled dynamically
        rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];

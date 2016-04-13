@@ -6,7 +6,6 @@
         <div class="panel panel-info">
 
             <div class="panel-heading">
-                Visualizing Enriched Network
                 <strong><span ng-bind-html="visualizer.networkName"></span></strong>
             </div>
 
@@ -31,7 +30,7 @@
 
                 <div class="wrapLongLine rowWith1emBottomPad"
                      ng-repeat='property in visualizer.networkProperties'>
-                    <strong><span ng-bind="property.n"></span></strong> : <span ng-bind="property.v"></span>
+                    <strong><span ng-bind-html="property.n"></span></strong> : <span ng-bind-html="property.v"></span>
 
                 </div>
             </div>

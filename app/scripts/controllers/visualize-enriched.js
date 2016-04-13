@@ -178,8 +178,11 @@ angular.module('ndexCravatWebappApp')
               if (prop.n.toLowerCase() === 'name') {
                   visualizer.networkName = prop.v;
               }
-              
-              netProperties.push(prop);
+
+              if (prop.v) {
+                  // only display network properties with non-empty values
+                  netProperties.push(prop);
+              }
           }
 
           return netProperties;

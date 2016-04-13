@@ -17,6 +17,8 @@ angular.module('ndexCravatWebappApp')
       var visualizer = $scope.visualizer;
 
       visualizer.errorMessage = null;
+      visualizer.networkProperties = null;
+      visualizer.networkName = null;
 
       var req = {
           'method': 'GET',
@@ -30,6 +32,11 @@ angular.module('ndexCravatWebappApp')
               // response is a CX network
               // First convert it to niceCX to make it easy to update attributes
               var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
+              
+              if (niceCX && niceCX['networkAttributes']) {
+                  visualizer.networkProperties = $scope.extractNetworkProperties(niceCX['networkAttributes']);
+              }
+              
 
               console.log(niceCX);
               console.log(networkUUID);
@@ -158,5 +165,23 @@ angular.module('ndexCravatWebappApp')
           }
       );
 
+      $scope.extractNetworkProperties = function(properties) {
 
+          var netProperties = [];
+
+          if ((!properties) || (!properties.elements)) {
+              return netProperties;
+          }
+
+          for (var i = 0; i < properties.elements.length; i++) {
+              var prop = properties.elements[i];
+              if (prop.n.toLowerCase() === 'name') {
+                  visualizer.networkName = prop.v;
+              }
+              
+              netProperties.push(prop);
+          }
+
+          return netProperties;
+      }
   });

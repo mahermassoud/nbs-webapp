@@ -97,3 +97,10 @@ body {
   white-space: pre;
 }
 
+.wrapLongLine {
+  word-wrap: break-word;
+}
+
+.rowWith1emBottomPad {
+  padding-bottom: 1em;
+}

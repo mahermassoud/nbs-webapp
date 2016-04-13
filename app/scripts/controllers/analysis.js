@@ -17,18 +17,10 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
        rankedNetworksList.geneList = 'AURKB, foo, BRCA1, PCNA, AKT1, ITGB2';
-       rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
-        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
-/*
- rankedNetworksList.eSets = [{
- 'label': 'cravat_nci',
- 'value': 'cravat_nci'
- }, {
- 'label': 'rudi_test',
- 'value': 'rudi_test'
- }];
 
- */
+        // eSets should be filled dynamically
+       rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
+       rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
        $scope.submit = function() {
 
@@ -152,11 +144,11 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                 list = list + '<br /><br />';
              }
 
-             list = list + '<strong>                PV : </strong>' + networkPV   + '<br />' +
-                           '<strong>              Name : </strong>' + networkName + '<br />' +
-                           '<strong>              UUID : </strong>' + networkUUID + '<br />' +
+             list = list + '<strong>       PV : </strong>' + networkPV   + '<br />' +
+                           '<strong>     Name : </strong>' + networkName + '<br />' +
+                           '<strong>     UUID : </strong>' + networkUUID + '<br />' +
 
-     ((networkOverlap) ? ( '<strong>           Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
+     ((networkOverlap) ? ( '<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
 
 
                      //      '<strong>          Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
@@ -174,7 +166,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                    //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
                    //            'View Original Network</a>' + '<br />' +
 
-                           '<strong> Visualize Network : </strong><a href="#/visualizeEnriched/' + networkUUID + '">' +
+                           '<strong>Visualize : </strong><a target="_blank" href="#/visualizeEnriched/' + networkUUID + '">' +
                                'View Network</a>';
           }
 

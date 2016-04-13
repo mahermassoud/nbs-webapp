@@ -9,34 +9,35 @@
 
             <div class="panel-body">
                 <!--<form ng-submit="submit()" ng-controller="AnalysisCtrl" id="analysisCtrlForm">-->
-                    <textarea
-                            style="resize:none; width:100%"
-                            rows="5"
-                            ng-model="rankedNetworksList.geneList">
-                    </textarea>
+                <textarea
+                        style="resize:none; width:100%"
+                        rows="5"
+                        ng-model="rankedNetworksList.geneList">
+                </textarea>
 
-                    <div>
-                        <label>Networks to Search</label>
-                    </div>
-                
-                    <select class="form-control input-md" ng-model="rankedNetworksList.eSetSelected">
-                         <option ng-repeat="eset in rankedNetworksList.eSets" value="{{eset}}">{{eset}}</option>
-                    </select>
+                <div class="rowWith1emTopPad">
+                    <label>Networks to Search</label>
+                </div>
+
+                <select class="form-control input-md" ng-model="rankedNetworksList.eSetSelected">
+                     <option ng-repeat="eset in rankedNetworksList.eSets" value="{{eset}}">{{eset}}</option>
+                </select>
+
+                <div class="rowWith1emBottomPad" />
+
+                <input type="submit"
+                       class="btn btn-primary"
+                       id="submit"
+                       ng-disabled="!rankedNetworksList.geneList"
+                       ng-click="submit()"
+                       value="Submit" />
 
 
-                    <input type="submit"
-                           class="btn btn-primary"
-                           id="submit"
-                           ng-disabled="!rankedNetworksList.geneList"
-                           ng-click="submit()"
-                           value="Submit" />
-
-
-                    <input type="reset"
-                           class="btn btn-default"
-                           ng-disabled="!rankedNetworksList.geneList"
-                           value="Clear"
-                           ng-click="clearInput()">
+                <input type="reset"
+                       class="btn btn-default"
+                       ng-disabled="!rankedNetworksList.geneList"
+                       value="Clear"
+                       ng-click="clearInput()">
                <!-- </form>-->
             </div>
 
@@ -55,7 +56,7 @@
         <div class="panel panel-info">
 
             <div class="panel-heading">
-                Ranked List Of Related Networks
+                Ranked List of Related Networks
             </div>
 
 

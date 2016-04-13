@@ -50,8 +50,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
               function( response ) {
 
                   rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
-                  var responseScores = {};
-                  responseScores = $scope.normalizeResponseScores(response.scores);
+                  var responseScores = $scope.normalizeResponseScores(response.scores);
                   sharedProperties.setResponseScores(responseScores);
 
               }

@@ -28,9 +28,13 @@ if you want to build and run this application locally.  To install these tools, 
 
 `npm install -g yo grunt-cli bower`
 
-More information on using Yeoman for building is avaialble at the link below: `https://www.safaribooksonline.com/blog/2013/07/02/web-applications-with-yeoman/`
+More information on installing Yeoman and using it for builidng applications is avaialble at the link below: https://www.safaribooksonline.com/blog/2013/07/02/web-applications-with-yeoman/
 
-
+### Building 
+After checking out the required branch and installing Yeoman tools, issue the following commande to install dependencies
+and update them:
+`npm install`
+`bower update`
 
 ## Build & development
 

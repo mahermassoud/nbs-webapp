@@ -16,9 +16,9 @@ this will clone rpository into newly created directory  `ndex-cravat-webapp`
 
 After cloning, you can get a specific release (releases have tags). To do so, get a list of tags, and checkout a release with a specific tag:
 
-`cd ndex-cravat-web-app`
-`git tag -l` -- get a list of tags
-`git checkout tags/demo_v01_041316` -- checkout a release tagged `demo_v01_041316`
+`cd ndex-cravat-web-app` <br />
+`git tag -l` -- get a list of tags <br />
+`git checkout tags/demo_v01_041316` -- checkout a release tagged `demo_v01_041316` <br />
 
 
 ## Build & development

@@ -20,6 +20,15 @@ After cloning, you can get a specific release (releases have tags). To do so, ge
 `git tag -l` -- get a list of tags <br />
 `git checkout tags/demo_v01_041316` -- checkout a release tagged `demo_v01_041316` <br />
 
+## Running Locally
+
+# Installing Yeoman
+NDEx Cravat WebApp is a Yeoman application, so make sure that you have `yo`, `grunt` and `bower` installed 
+if you want to build and run this application locally.  To install these tools, issue
+
+`npm install -g yo grunt-cli bower`
+
+
 
 ## Build & development
 

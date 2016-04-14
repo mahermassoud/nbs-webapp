@@ -33,6 +33,7 @@ More information on installing Yeoman and using it for builidng applications is 
 ### Building 
 After checking out the required branch and installing Yeoman tools, issue the following commande to install dependencies
 and update them:
+
 `npm install` <br />
 `bower update` <br />
 

@@ -22,11 +22,13 @@ After cloning, you can get a specific release (releases have tags). To do so, ge
 
 ## Running Locally
 
-# Installing Yeoman
+### Installing Yeoman
 NDEx Cravat WebApp is a Yeoman application, so make sure that you have `yo`, `grunt` and `bower` installed 
 if you want to build and run this application locally.  To install these tools, issue
 
 `npm install -g yo grunt-cli bower`
+
+More information on using Yeoman for building is avaialble at the link below: `https://www.safaribooksonline.com/blog/2013/07/02/web-applications-with-yeoman/`
 
 
 

@@ -33,12 +33,12 @@ More information on installing Yeoman and using it for builidng applications is 
 ### Building 
 After checking out the required branch and installing Yeoman tools, issue the following commande to install dependencies
 and update them:
-`npm install`
-`bower update`
+`npm install` <br />
+`bower update` <br />
 
-## Build & development
+### Running
 
-Run `grunt` for building and `grunt serve` for preview.
+`grunt serve`
 
 ## Testing
 

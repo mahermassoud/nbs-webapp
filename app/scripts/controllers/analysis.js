@@ -16,6 +16,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        rankedNetworksList.responseJSON = undefined;
 
        //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
+       // auto init textbox to contain these :: analysis.html line 15
        rankedNetworksList.geneList = 'AURKB, BRCA1, PCNA, AKT1, ITGB2';
 
         // eSets should be filled dynamically
@@ -24,8 +25,8 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        $scope.submit = function() {
 
+          // Split and trim rankedNetworkList inputs
           var list = rankedNetworksList.geneList.split(',');
-
           for (var i = 0; i < list.length; i++) {
              list[i] = list[i].trim();
           }
@@ -37,6 +38,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
           var req = {
              'method': 'POST',
+             // webServices is parameter to this function, all webServices does is return a string
              'url': webServices.getEnrichmentServiceURL(),
              'headers': {
                 'Content-Type': 'application/json'
@@ -44,11 +46,13 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              'data': myJsonString
           };
 
+          // http is also param
           $http( req
 
           ).success(
               function( response ) {
 
+                  // same file line 98
                   rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
                   var responseScores = $scope.normalizeResponseScores(response.scores);
                   sharedProperties.setResponseScores(responseScores);

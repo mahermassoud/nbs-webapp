@@ -30,8 +30,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           for (var i = 0; i < list.length; i++) {
              list[i] = list[i].trim();
           }
-
-          //var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
+           
           var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
 
           var myJsonString = JSON.stringify(myObj);

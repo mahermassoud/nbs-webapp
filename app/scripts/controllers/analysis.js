@@ -20,9 +20,11 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        rankedNetworksList.geneList = 'AURKB, BRCA1, PCNA, AKT1, ITGB2';
 
         // eSets should be filled dynamically
+        // Select which network to search
        rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
+       // Function ran when submit is clicked
        $scope.submit = function() {
 
           // Split and trim rankedNetworkList inputs
@@ -30,11 +32,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           for (var i = 0; i < list.length; i++) {
              list[i] = list[i].trim();
           }
-           
+
           var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
 
           var myJsonString = JSON.stringify(myObj);
 
+         // HTTP header for request to enrichment service
           var req = {
              'method': 'POST',
              // webServices is parameter to this function, all webServices does is return a string
@@ -45,7 +48,8 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              'data': myJsonString
           };
 
-          // http is also param
+          // make POST request to enrichment service with given gene_ids and network to search
+          // list of networks is returned with scores (marked as PV) in output
           $http( req
 
           ).success(
@@ -88,12 +92,15 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             return retScores;
         };
 
+       // Code for clear button on main page
        $scope.clearInput = function() {
           delete rankedNetworksList.geneList;
           delete rankedNetworksList.responseJSON;
           rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
        };
 
+      // Takes response from POST request to enrichment service and returns a list object that represents enriched
+      // network, including name, UUID, Overlap etc
        $scope.buildListOfEnrichedNetworks = function(response) {
 
            console.log('in buildListOfEnrichedNetworks');

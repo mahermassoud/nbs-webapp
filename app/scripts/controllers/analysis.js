@@ -9,7 +9,7 @@
  */
 angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
-    function ($scope, $http, sharedProperties, webServices) {
+    function ($scope, $http, sharedProperties, webServices, fileInputService) {
 
        $scope.rankedNetworksList = {};
        var rankedNetworksList = $scope.rankedNetworksList;
@@ -22,7 +22,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
-       $scope.submit = function() {
+        $scope.fileContent = null;
+        $scope.fileContentInJSON = null;
+        $scope.uploadedFileName = null;
+
+
+        $scope.submit = function() {
 
           var list = rankedNetworksList.geneList.split(',');
 
@@ -170,4 +175,70 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
           return list;
        };
+
+        $scope.onFileUpload = function (element) {
+            $scope.$apply(function (scope) {
+                var file = element.files[0];
+
+                $scope.fileContentInJSON = null;
+                $scope.fileContent = null;
+
+                fileInputService.readFileAsync(file).then(function (fileInputContent) {
+
+                    $scope.fileContent = fileInputContent;
+
+                    //$scope.fileContentInJSON = JSON.stringify(d3.tsv.parse(fileInputContent));
+
+                   // var d3ParsedString = d3.tsv.parse(fileInputContent);
+
+                    var strippedNewLines = fileInputContent.split("\n");
+
+
+                    var i;
+                    for(i = 0; i < strippedNewLines.length; i++) {
+                        if (strippedNewLines[i].toLowerCase().startsWith('hugo symbol')) {
+                            break;
+                        }
+                    }
+
+                    if (i >= strippedNewLines.length) {
+                        return;
+                    }
+
+
+                    var result = [];
+
+                    var headers = strippedNewLines[i].split("\t");
+
+                    for(var j = i + 1; j < strippedNewLines.length; j++){
+
+                        var obj = {};
+                        var currentline = strippedNewLines[j].split("\t");
+
+                        if (currentline.length != headers.length) {
+                            continue;
+                        }
+
+                        var k;
+                        for(k = 0; k < headers.length; k++){
+                            obj[headers[k]] = currentline[k];
+                        }
+
+                        result.push(obj);
+                    }
+
+
+                    $scope.fileContentInJSON = JSON.stringify(result, null, 3);
+
+
+                    //console.log('in onFileUpload');
+                });
+
+
+                $scope.uploadedFileName = file.name;
+
+            });
+        };
+
+
    });

@@ -1,8 +1,8 @@
 <div class="row">
     <!-- Left Column -->
     <div class="col-md-3">
-        <div class="panel panel-info">
 
+        <div class="panel panel-info">
             <div class="panel-heading">
                 Find Related Networks by Gene List
             </div>
@@ -35,37 +35,79 @@
 
                 <input type="reset"
                        class="btn btn-default"
-                       ng-disabled="!rankedNetworksList.geneList"
+                       ng-show="rankedNetworksList.geneList"
                        value="Clear"
                        ng-click="clearInput()" />
                <!-- </form>-->
             </div>
+        </div>
+
+        <div class="rowWith1emTopPad"></div>
+
+
+
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                Upload TSV File
+            </div>
+
+            <div class="panel-body">
+
+                <div>
+                    <label>Select File to Upload</label>
+                </div>
+
+                <!-- <input type="file" filelist-bind name="files"/> -->
+
+                <label class="btn btn-primary" for="my-file-selector">
+                    <!--<input id="my-file-selector" type="file" filelist-bind name="files" style="display:none;" />-->
+                    <input id="my-file-selector"
+                           type="file"
+                           name="files"
+                           style="display:none;"
+                           onchange="angular.element(this).scope().onFileUpload(this)" />
+
+                    Choose File ...
+                </label>
+
+                <input type="reset"
+                       class="btn btn-default"
+                       ng-show="fileContent || fileContentInJSON"
+                       value="Clear"
+                       ng-click="clearFileContent()" />
+
+            </div>
 
         </div>
+
     </div>
 
     <!-- Right Column -->
     <div class="col-md-9">
 
-        <!--
-        <div>
-          <strong>Visualize Test : </strong>
-          <a target="_blank" href="#/visualizeOriginal/ceabdd01-fdd1-11e5-a5bc-0660b7976219">' + "a6b1 and a6b4" </a>'
-        </div>
-         -->
-        <div class="panel panel-info">
+        <div class="panel panel-info" ng-show="rankedNetworksList.responseJSON">
 
             <div class="panel-heading">
                 Ranked List of Related Networks
             </div>
 
-
             <div class="panel-body">
-               <pre ng-show="rankedNetworksList.responseJSON">
-                  <span ng-bind-html="rankedNetworksList.responseJSON"></span>
-               </pre>
+               <pre><span ng-bind-html="rankedNetworksList.responseJSON"></span></pre>
             </div>
 
+        </div>
+
+        <div class="panel panel-info" ng-show="fileContent || fileContentInJSON">
+
+            <div class="panel-heading">
+                Contents of <strong>{{uploadedFileName}}</strong>
+            </div>
+
+            <div class="panel-body">
+                <pre ng-show="fileContent"><span ng-bind-html="fileContent"></span></pre>
+                <pre ng-show="fileContentInJSON"><span ng-bind-html="fileContentInJSON"></span></pre>
+            </div>
 
         </div>
 

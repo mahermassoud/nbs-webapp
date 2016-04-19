@@ -9,7 +9,7 @@
  */
 angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
-    function ($scope, $http, sharedProperties, webServices) {
+    function ($scope, $http, sharedProperties, webServices, fileInputService) {
 
        $scope.rankedNetworksList = {};
        var rankedNetworksList = $scope.rankedNetworksList;
@@ -24,8 +24,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
-       // Function ran when submit is clicked
-       $scope.submit = function() {
+        $scope.fileContent = undefined;
+        $scope.fileContentInJSON = undefined;
+        $scope.uploadedFileName = undefined;
+
+         // Function ran when submit is clicked
+        $scope.submit = function() {
 
           // Split and trim rankedNetworkList inputs
           var list = rankedNetworksList.geneList.split(',');
@@ -94,10 +98,16 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        // Code for clear button on main page
        $scope.clearInput = function() {
-          delete rankedNetworksList.geneList;
-          delete rankedNetworksList.responseJSON;
+          rankedNetworksList.geneList = undefined;
+          rankedNetworksList.responseJSON = undefined;
           rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
        };
+
+        $scope.clearFileContent = function() {
+            $scope.fileContent = undefined;
+            $scope.fileContentInJSON = undefined;
+            $scope.uploadedFileName = undefined;
+        };
 
       // Takes response from POST request to enrichment service and returns a list object that represents enriched
       // network, including name, UUID, Overlap etc
@@ -181,4 +191,36 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
           return list;
        };
+
+        $scope.onFileUpload = function (element) {
+            $scope.$apply(function () {
+                var file = element.files[0];
+
+                fileInputService.readFileAsync(file).then(function (fileInputContent) {
+
+                    $scope.fileContent = fileInputContent;
+
+                    // find where actual CRAVAT data begins... it begins with the "HUGO symbol" substring
+                    var index = fileInputContent.toLowerCase().indexOf('hugo symbol');
+
+                    if (index < 0) {
+                        $scope.fileContentInJSON = undefined;
+                        return;
+                    }
+
+                    // this is part of Cravat file stripped off the headers;  it begins with "HUGO symbol"
+                    // string which is header of the first column in the Cravat TSV file
+                    var cravatPureData = fileInputContent.substring(index);
+                    var d3ParsedString = d3.tsv.parse(cravatPureData);
+
+                    $scope.fileContentInJSON = JSON.stringify(d3ParsedString, null, 3);
+
+                });
+
+                $scope.uploadedFileName = file.name;
+
+            });
+        };
+
+
    });

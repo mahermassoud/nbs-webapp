@@ -186,5 +186,5 @@ angular.module('ndexCravatWebappApp')
           }
 
           return netProperties;
-      }
+      };
   });

@@ -35,7 +35,7 @@
 
                 <input type="reset"
                        class="btn btn-default"
-                       ng-disabled="!rankedNetworksList.geneList"
+                       ng-show="rankedNetworksList.geneList"
                        value="Clear"
                        ng-click="clearInput()" />
                <!-- </form>-->
@@ -71,7 +71,11 @@
                     Choose File ...
                 </label>
 
-                <div class="rowWith1emBottomPad"></div>
+                <input type="reset"
+                       class="btn btn-default"
+                       ng-show="fileContent || fileContentInJSON"
+                       value="Clear"
+                       ng-click="clearFileContent()" />
 
             </div>
 
@@ -82,16 +86,14 @@
     <!-- Right Column -->
     <div class="col-md-9">
 
-        <div class="panel panel-info">
+        <div class="panel panel-info" ng-show="rankedNetworksList.responseJSON">
 
             <div class="panel-heading">
                 Ranked List of Related Networks
             </div>
 
             <div class="panel-body">
-               <pre ng-show="rankedNetworksList.responseJSON">
-                  <span ng-bind-html="rankedNetworksList.responseJSON"></span>
-               </pre>
+               <pre><span ng-bind-html="rankedNetworksList.responseJSON"></span></pre>
             </div>
 
         </div>
@@ -103,7 +105,7 @@
             </div>
 
             <div class="panel-body">
-               <pre ng-show="fileContent"><span ng-bind-html="fileContent"></span></pre>
+                <pre ng-show="fileContent"><span ng-bind-html="fileContent"></span></pre>
                 <pre ng-show="fileContentInJSON"><span ng-bind-html="fileContentInJSON"></span></pre>
             </div>
 

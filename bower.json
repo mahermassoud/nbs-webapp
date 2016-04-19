@@ -14,7 +14,8 @@
     "angular-touch": "^1.4.0",
     "cytoscape": "^2.6.6",
     "lodash": "^4.6.1",
-    "angular-strap": "v2.1.0"
+    "angular-strap": "v2.1.0",
+    "d3": "^3.5.16"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

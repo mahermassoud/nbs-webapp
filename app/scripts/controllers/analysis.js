@@ -88,6 +88,25 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             return retScores;
         };
 
+        $scope.normalizeArrayOfGenes = function(arrayOfGenes, key) {
+            var mapOfGenes = {};
+
+            if (!arrayOfGenes) {
+                return normalizedArrayOfGenes;
+            }
+
+            for (var i = 0; i < arrayOfGenes.length; i++) {
+
+                var entry = arrayOfGenes[i];
+
+                if (key in entry) {
+                    mapOfGenes[entry[key]] = entry;
+                }
+            }
+
+            return mapOfGenes;
+        };
+
        $scope.clearInput = function() {
           rankedNetworksList.geneList = undefined;
           rankedNetworksList.responseJSON = undefined;
@@ -102,8 +121,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        $scope.buildListOfEnrichedNetworks = function(response) {
 
-           console.log('in buildListOfEnrichedNetworks');
-
+           //console.log('in buildListOfEnrichedNetworks');
 
           if ((!response) || (!response.scores)  || (response.scores.length === 0)) {
              return 'no networks found';
@@ -152,29 +170,29 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                 list = list + '<br /><br />';
              }
 
-             list = list + '<strong>       PV : </strong>' + networkPV   + '<br />' +
-                           '<strong>     Name : </strong>' + networkName + '<br />' +
-                           '<strong>     UUID : </strong>' + networkUUID + '<br />' +
+             list = list + '<strong>                PV : </strong>' + networkPV   + '<br />' +
+                           '<strong>              Name : </strong>' + networkName + '<br />' +
+                           '<strong>              UUID : </strong>' + networkUUID + '<br />' +
 
-     ((networkOverlap) ? ( '<strong>  Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
+     ((networkOverlap) ? ( '<strong>           Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
 
 
-                     //      '<strong>          Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
-                     //           networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
+                           '<strong>          Retrieve : </strong><a  href="http://dev2.ndexbio.org/rest/network/' +
+                                networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
 
-                    //       '<strong>         Translate : </strong><a  target="_blank" href="#/viewnicecx/' +
-                    //            networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
+                           '<strong>         Translate : </strong><a   href="#/viewnicecx/' +
+                                networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
 
-                    //       '<strong>        Mark Nodes : </strong><a target="_blank" href="#/markNiceCX/' +
-                    //            networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
+                           '<strong>        Mark Nodes : </strong><a  href="#/markNiceCX/' +
+                                networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
 
-                    //       '<strong> Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
-                    //            networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
+                           '<strong> Nice CX -> Raw CX : </strong><a  href="#/niceCXtoRawCX/' +
+                                networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
 
                    //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
                    //            'View Original Network</a>' + '<br />' +
 
-                           '<strong>Visualize : </strong><a target="_blank" href="#/visualizeEnriched/' + networkUUID + '">' +
+                           '<strong>         Visualize : </strong><a target="_blank" href="#/visualizeEnriched/' + networkUUID + '">' +
                                'View Network</a>';
           }
 
@@ -200,9 +218,28 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                     // this is part of Cravat file stripped off the headers;  it begins with "HUGO symbol"
                     // string which is header of the first column in the Cravat TSV file
                     var cravatPureData = fileInputContent.substring(index);
-                    var d3ParsedString = d3.tsv.parse(cravatPureData);
+                    var d3ParsedArray = d3.tsv.parse(cravatPureData);
 
-                    $scope.fileContentInJSON = JSON.stringify(d3ParsedString, null, 3);
+                    $scope.fileContentInJSON = JSON.stringify(d3ParsedArray, null, 3);
+
+                    // use Lodash function _.map() to get values of 'HUGO symbol' key from all objects in d3ParsedArray.
+                    // This gives us array of genes.
+                    var arrayOfGenes = _.map(d3ParsedArray, 'HUGO symbol');
+
+                    // initialize Find Related Networks by Gene List panel with the genes extracted from CRAVAT file
+                    var resultString = arrayOfGenes.toString();
+                    rankedNetworksList.geneList = resultString;
+
+
+                    // translate array of genes to map of genes with "HUGO symbol" values as keys
+                    var mapOfGenes = $scope.normalizeArrayOfGenes(d3ParsedArray, 'HUGO symbol');
+
+                    $scope.fileContentInJSON = JSON.stringify(mapOfGenes, null, 3);
+
+
+                    $scope.submit();
+
+                    //console.log(resultString);
 
                 });
 

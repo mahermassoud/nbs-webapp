@@ -59,11 +59,13 @@ angular.module('ndexCravatWebappApp')
     };
 
     this.markInQueryNodes = function (niceCX, networkUUID) {
+
       var responseScores = sharedProperties.getResponseScores(networkUUID);
+
       if (responseScores) {
         var overlappedIDs = [];
 
-        if (responseScores && responseScores.overlap) {
+        if (responseScores.overlap) {
           for (var key in responseScores.overlap) {
             var nodeIds = responseScores.overlap[key];
 

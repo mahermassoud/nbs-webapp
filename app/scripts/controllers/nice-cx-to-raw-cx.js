@@ -27,6 +27,9 @@ angular.module('ndexCravatWebappApp')
 
               var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
 
+              // add cravat attributes to network (if there are any)
+              utils.addCravatAttributesToCX(niceCX, networkUUID);
+
               utils.markInQueryNodes(niceCX, networkUUID);
 
               var rawCX = cxNetworkUtils.niceCXToRawCX(niceCX);

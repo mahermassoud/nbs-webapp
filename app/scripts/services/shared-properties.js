@@ -12,24 +12,32 @@ angular.module('ndexCravatWebappApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     return {
-      getAllResponseScores: function () {
-          var responseScores = JSON.parse(sessionStorage.getItem('responseScores'));
-          return responseScores;
-       },
 
-      getResponseScores: function (networkUUID) {
-          var responseScores = this.getAllResponseScores();
-        if (responseScores){
-          return responseScores[networkUUID];
-        } else {
-          return null;
+        setResponseScores: function (responseScores) {
+            var jsonObj = JSON.stringify(responseScores);
+            sessionStorage.setItem('responseScores', jsonObj);
+        },
+
+        getAllResponseScores: function () {
+            var responseScores = JSON.parse(sessionStorage.getItem('responseScores'));
+            return responseScores;
+        },
+
+        getResponseScores: function (networkUUID) {
+            var responseScores = this.getAllResponseScores();
+            return (responseScores) ? responseScores[networkUUID] : null;
+        },
+
+        setCravatData: function (cravatData) {
+            var jsonObj = JSON.stringify(cravatData);
+            sessionStorage.setItem('cravatData', jsonObj);
+        },
+
+        getCravatData: function () {
+            var cravatData = JSON.parse(sessionStorage.getItem('cravatData'));
+            return cravatData;
         }
 
-      },
-
-      setResponseScores: function (responseScores) {
-          var jsonObj = JSON.stringify(responseScores);
-          sessionStorage.setItem('responseScores', jsonObj);
-       }
     };
+
   });

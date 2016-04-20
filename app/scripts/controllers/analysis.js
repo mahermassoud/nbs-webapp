@@ -21,7 +21,8 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
         // eSets should be filled dynamically
         // Select which network to search
-       rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
+       //rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
+       rankedNetworksList.eSets = ['ovarian'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
         $scope.fileContent = undefined;
@@ -39,6 +40,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
           var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
 
+          // Holds selection from drop down
           var myJsonString = JSON.stringify(myObj);
 
          // HTTP header for request to enrichment service

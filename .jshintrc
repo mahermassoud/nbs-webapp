@@ -15,6 +15,7 @@
     "cytoscape": false,
     "$": false,
     "_": false,
-    "cy": true
+    "cy": true,
+    "d3": false
   }
 }

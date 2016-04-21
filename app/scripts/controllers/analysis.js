@@ -102,7 +102,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             var mapOfGenes = {};
 
             if (!arrayOfGenes) {
-                return normalizedArrayOfGenes;
+                return mapOfGenes;
             }
 
             for (var i = 0; i < arrayOfGenes.length; i++) {
@@ -190,16 +190,16 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
      ((networkOverlap) ? ( '<strong>           Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
 
 
-                           '<strong>          Retrieve : </strong><a  href="http://dev2.ndexbio.org/rest/network/' +
+                           '<strong>          Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
                                 networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
 
-                           '<strong>         Translate : </strong><a   href="#/viewnicecx/' +
+                           '<strong>         Translate : </strong><a target="_blank" href="#/viewnicecx/' +
                                 networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
 
-                           '<strong>        Mark Nodes : </strong><a  href="#/markNiceCX/' +
+                           '<strong>        Mark Nodes : </strong><a target="_blank" href="#/markNiceCX/' +
                                 networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
 
-                           '<strong> Nice CX -> Raw CX : </strong><a  href="#/niceCXtoRawCX/' +
+                           '<strong> Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
                                 networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
 
                    //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
@@ -228,12 +228,11 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                         return;
                     }
 
-                    // this is part of Cravat file stripped off the headers;  it begins with "HUGO symbol"
-                    // string which is header of the first column in the Cravat TSV file
+                    // this is part of Cravat TSV file stripped off the headers that begins with "HUGO symbol"
+                    // string which is header of the first column
                     var cravatPureData = fileInputContent.substring(index);
                     var d3ParsedArray = d3.tsv.parse(cravatPureData);
 
-                    $scope.fileContentInJSON = JSON.stringify(d3ParsedArray, null, 3);
 
                     // use Lodash function _.map() to get values of 'HUGO symbol' key from all objects in d3ParsedArray.
                     // This gives us array of genes.
@@ -246,14 +245,11 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
                     // translate array of genes to map of genes with "HUGO symbol" values as keys
                     var mapOfGenes = $scope.normalizeArrayOfGenes(d3ParsedArray, 'HUGO symbol');
+                    sharedProperties.setCravatData(mapOfGenes);
 
                     $scope.fileContentInJSON = JSON.stringify(mapOfGenes, null, 3);
 
-
                     $scope.submit();
-
-                    //console.log(resultString);
-
                 });
 
                 $scope.uploadedFileName = file.name;

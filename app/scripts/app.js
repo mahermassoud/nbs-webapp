@@ -7,6 +7,7 @@
  * # ndexCravatWebappApp
  *
  * Main module of the application.
+ * Router
  */
 angular
   .module('ndexCravatWebappApp', [
@@ -37,8 +38,11 @@ angular
         controller: 'NiceCxCtrl',
         controllerAs: 'niceCx'
       })
+      // when URL is this
       .when('/markNiceCX/:networkUUID', {
+        // use this view
         templateUrl: 'views/mark-nice-cx.html',
+        //this controller
         controller: 'MarkNiceCxCtrl',
         controllerAs: 'markNiceCx'
       })

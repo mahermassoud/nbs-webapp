@@ -9,13 +9,13 @@
  */
 angular.module('ndexCravatWebappApp')
 
-  .controller('MarkNiceCxCtrl', function ($scope, $routeParams, $http, 
+  .controller('MarkNiceCxCtrl', function ($scope, $routeParams, $http,
                                           cxNetworkUtils, cyService, webServices, sharedProperties, utils) {
       var networkUUID = $routeParams.networkUUID;
 
       $scope.network = {};
       var network = $scope.network;
-      
+
 
       var req = {
           'method': 'GET',
@@ -25,8 +25,9 @@ angular.module('ndexCravatWebappApp')
       $http( req
 
       ).success(
+          // response is raw CX
           function( response ) {
-              
+
               var niceCX = cxNetworkUtils.rawCXtoNiceCX(response);
 
               utils.markInQueryNodes(niceCX, networkUUID);
@@ -41,5 +42,5 @@ angular.module('ndexCravatWebappApp')
 
           }
       );
-      
+
   });

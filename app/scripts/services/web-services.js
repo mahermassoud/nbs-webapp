@@ -13,8 +13,9 @@ angular.module('ndexCravatWebappApp')
 
     var ENRICHMENT_SERVICE_URL   = 'http://enrich.ndexbio.org/enrich/v1/api/esets/query';
     var CX2CYJS_URL              = 'http://ci-dev-serv.ucsd.edu:3001/cx2cyjs';
+    // dev2. is just for development
     var DEV2_NDEXBIO_SERVICE_URL = 'http://dev2.ndexbio.org/rest/network';
-      
+
     return {
       getEnrichmentServiceURL: function () {
         return ENRICHMENT_SERVICE_URL;

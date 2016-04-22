@@ -41,6 +41,12 @@ and update them:
 
 `grunt serve`
 
+## Building for Deploying
+Please follow steps on cloning, installing and building the project described above. To build version for deploying, issue
+`grunt build` <br />
+from the project's root directory.  This command created `dist` directory that should be copied to your web server.
+
+
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.

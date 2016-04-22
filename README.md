@@ -43,8 +43,51 @@ and update them:
 
 ## Building for Deploying
 Please follow steps on cloning, installing and building the project described above. To build version for deploying, issue
+
 `grunt build` <br />
-from the project's root directory.  This command created `dist` directory that should be copied to your web server.
+
+from the project's root directory.  This command creates `dist` directory.  Copy this directory to your web server (you can compress it for your convenience).
+
+The actual javascripts are in `dist/scripts` directory.  They have been `uglified` by the `grunt build` command, i.e., all project's javascript files have been combined together, and have new lines removed to make the resulting scripts more compact.
+
+In case you want you resultiong scripts to be readable, please disable your `ugligy` task by removing `uglifyjs` from `useminPrepare`:
+
+    useminPrepare: {
+      html: '<%= yeoman.app %>/index.html',
+      options: {
+        dest: '<%= yeoman.dist %>',
+        flow: {
+          html: {
+            steps: {
+              js: ['concat', 'uglifyjs'],
+              css: ['cssmin']
+            },
+            post: {}
+          }
+        }
+      }
+    },
+    
+  and removing `uglify` from
+  
+    grunt.registerTask('build', [
+    'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin'
+  ]);
+
 
 
 ## Testing

@@ -46,11 +46,11 @@ Please follow steps on cloning, installing and building the project described ab
 
 `grunt build` <br />
 
-from the project's root directory.  This command creates `dist` directory.  Copy this directory to your web server (you can compress it for your convenience).
+from the project's root directory.  This command creates `dist` directory.  Copy this directory to your web server (you can compress it for your convenience, for example `tar -zcvf ndex-cravar-webapp.tar.gz dist/`).
 
 The actual javascripts are in `dist/scripts` directory.  They have been `uglified` by the `grunt build` command, i.e., all project's javascript files have been combined together, and have new lines removed to make the resulting scripts more compact.
 
-In case you want your deploymentscripts to be readable, please disable your `uglify` task by removing `uglifyjs` from `useminPrepare`:
+In case you want your deployment scripts to be readable, please disable your `uglify` task by removing `uglifyjs` from `useminPrepare`:
 
     useminPrepare: {
       html: '<%= yeoman.app %>/index.html',

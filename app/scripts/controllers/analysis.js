@@ -21,8 +21,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
         // eSets should be filled dynamically
         // Select which network to search
-       //rankedNetworksList.eSets = ['cravat_nci', 'rudi_test'];
-       rankedNetworksList.eSets = ['ovarian'];
+       rankedNetworksList.eSets = ['cravat_nci', 'rudi_test', 'ovarian'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
         $scope.fileContent = undefined;
@@ -38,43 +37,61 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
              list[i] = list[i].trim();
           }
 
-          var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected };
+          var myObj = {'ids': list, 'eset': rankedNetworksList.eSetSelected};
 
           // Holds selection from drop down
           var myJsonString = JSON.stringify(myObj);
 
-         // HTTP header for request to enrichment service
-          var req = {
-             'method': 'POST',
-             // webServices is parameter to this function, all webServices does is return a string
-             'url': webServices.getEnrichmentServiceURL(),
-             'headers': {
+          // if we are using vlad's networks
+          if(rankedNetworksList.eSetSelected != "ovarian") {
+
+            // HTTP header for request to enrichment service
+            var req = {
+              'method': 'POST',
+              // webServices is parameter to this function, all webServices does is return a string
+              'url': webServices.getEnrichmentServiceURL(),
+              'headers': {
                 'Content-Type': 'application/json'
-             },
-             'data': myJsonString
-          };
+              },
+              'data': myJsonString
+            };
 
-          // make POST request to enrichment service with given gene_ids and network to search
-          // list of networks is returned with scores (marked as PV) in output
-          $http( req
 
-          ).success(
+            // make POST request to enrichment service with given gene_ids and network to search
+            // list of networks is returned with scores (marked as PV) in output
+            $http( req
+
+            ).success(
               function( response ) {
 
-                  // same file line 98
-                  rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
-                  var responseScores = $scope.normalizeResponseScores(response.scores);
-                  sharedProperties.setResponseScores(responseScores);
+                // same file line 98
+                rankedNetworksList.responseJSON = $scope.buildListOfEnrichedNetworks(response);
+                var responseScores = $scope.normalizeResponseScores(response.scores);
+                sharedProperties.setResponseScores(responseScores);
 
               }
-          ).error (
-             function( response ) {
+            ).error (
+              function( response ) {
 
                 // process error here
                 console.log(response);
 
-             }
-          );
+              }
+            );
+          }
+          // else, we are using Massoud's nbs app
+          // simply visualizes network
+          else {
+            console.log("entered else!");
+            // randome UUID for testing purposes
+            var SAMPLE_UUID = "575ee3e8-c3a3-11e5-8fbc-06603eb7f303";
+
+            var vizLink = '<a href="#/visualizeEnriched/' +  SAMPLE_UUID +
+              '">View Network</a>';
+            rankedNetworksList.responseJSON = vizLink;
+          }
+
+
 
        };
 
@@ -204,7 +221,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
                    //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
                    //            'View Original Network</a>' + '<br />' +
-
+                            // target=_blank makes it so new tab opens
                            '<strong>         Visualize : </strong><a target="_blank" href="#/visualizeEnriched/' + networkUUID + '">' +
                                'View Network</a>';
           }

@@ -5,6 +5,7 @@ sync.sh
 /.tmp
 /.sass-cache
 /bower_components
+/test_files
 
 .idea/workspace.xml
 ./dist/*

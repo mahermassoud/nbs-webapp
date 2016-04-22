@@ -82,8 +82,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           // else, we are using Massoud's nbs app
           // simply visualizes network
           else {
-            console.log("entered else!");
-            // randome UUID for testing purposes
+            // random UUID for testing purposes
             var SAMPLE_UUID = "575ee3e8-c3a3-11e5-8fbc-06603eb7f303";
 
             var vizLink = '<a href="#/visualizeEnriched/' +  SAMPLE_UUID +

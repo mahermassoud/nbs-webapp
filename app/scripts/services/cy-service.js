@@ -57,6 +57,11 @@ angular.module('ndexCravatWebappApp')
           }
         }
       ];
+      
+      // Style applied to nodes that are highlighted, should be the same as DEF_VISUAL_STYLE except "background-color"
+      const NODE_HIGHLIGHT_STYLE = [
+        
+      ]
 
       factory.getDefaultStyle = function(){
         return DEF_VISUAL_STYLE;
@@ -397,8 +402,6 @@ angular.module('ndexCravatWebappApp')
       /*-----------------------------------------------------------------------*
        * Set a cyjs network to be displayed in the viewer
        *-----------------------------------------------------------------------*/
-
-
       factory.setCyjsNetwork = function (cyjsNetwork) {
 
         console.log('about to set style and layout');
@@ -421,10 +424,23 @@ angular.module('ndexCravatWebappApp')
 
       };
 
+      /*-----------------------------------------------------------------------*
+       * Returns cy object
+       *-----------------------------------------------------------------------*/
       factory.getCy = function(){
         return cy;
       };
 
+      /**
+       * Takes in a list of node LABELS and highlights them by 
+       * setting their style to NODE_HIGHLIGHT_STYLE
+       * (NODE_HIGHLIGHT_STYLE) is the same as default style except it has a different
+       * body color
+       * @param nodesToHighlight list of names of nodes that we want to hilight
+       */
+      factory.highlightNodes = function(nodesToHighlight) {
+
+      }
 
       return factory;
 

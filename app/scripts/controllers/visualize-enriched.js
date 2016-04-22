@@ -42,7 +42,7 @@ angular.module('ndexCravatWebappApp')
               console.log(networkUUID);
 
               // add cravat attributes to network (if there are any)
-              utils.addCravatAttributesToCX(niceCX, networkUUID);
+              //utils.addCravatAttributesToCX(niceCX, networkUUID);
               
               // add 'inQuery' : 'true' to nodes that link to terms (genes) in the enrichment query
               utils.markInQueryNodes(niceCX, networkUUID);

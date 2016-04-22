@@ -89,8 +89,7 @@ In case you want your deployment scripts to be readable, please disable your `ug
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
-  ]);
+    'htmlmin']);
 
 After removing `uglifyjs` and `uglify`, rebuild your project with `grunt build`.
 

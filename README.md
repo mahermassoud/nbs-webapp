@@ -31,7 +31,7 @@ if you want to build and run this application locally.  To install these tools, 
 More information on installing Yeoman and using it for builidng applications is avaialble at the link below: https://www.safaribooksonline.com/blog/2013/07/02/web-applications-with-yeoman/
 
 ### Building 
-After checking out the required branch and installing Yeoman tools, issue the following commande to install dependencies
+After checking out the required branch and installing Yeoman tools, issue the following command to install dependencies
 and update them:
 
 `npm install` <br />

@@ -10,7 +10,7 @@ To clone project run
 
 `git clone https://github.com/ndexbio/ndex-cravat-webapp.git`
 
-this will clone rpository into newly created directory  `ndex-cravat-webapp`
+this will clone repository into newly created directory  `ndex-cravat-webapp`
 
 ## Getting Specific Release 
 

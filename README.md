@@ -54,7 +54,9 @@ from the project's root directory.  This command creates `dist` directory.  Copy
 
 The actual javascripts are in `dist/scripts` directory.  They have been `uglified` by the `grunt build` command, i.e., all project's javascript files have been combined together, and have new lines removed to make the resulting scripts more compact.
 
-In case you want your deployment scripts to be readable, please disable your `uglify` task by removing `uglifyjs` from `useminPrepare`:
+In case you want your deployment scripts to be readable, please modify your Gruntfile.js to disable your `uglify` task by 
+
+1) removing `uglifyjs` from `useminPrepare` :
 
     useminPrepare: {
       html: '<%= yeoman.app %>/index.html',
@@ -72,7 +74,7 @@ In case you want your deployment scripts to be readable, please disable your `ug
       }
     },
     
-  and removing `uglify` from
+2) and removing `uglify` from
   
     grunt.registerTask('build', [
     'clean:dist',

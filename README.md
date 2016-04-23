@@ -93,7 +93,7 @@ In case you want your deployment scripts to be readable, please modify your Grun
     'usemin',
     'htmlmin']);
 
-After removing `uglifyjs` and `uglify`, rebuild your project with `grunt build`.
+After removing `uglifyjs` and `uglify`, rebuild your project with `grunt build`, and re-deploy it.
 
 
 ## Testing

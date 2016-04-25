@@ -36,6 +36,18 @@ angular.module('ndexCravatWebappApp')
         getCravatData: function () {
             var cravatData = JSON.parse(sessionStorage.getItem('cravatData'));
             return cravatData;
+        },
+
+        setCravatFileName: function(cravatFileName) {
+            sessionStorage.setItem('cravatFileName', cravatFileName);
+        },
+
+        getCravatFileName: function() {
+            return sessionStorage.getItem('cravatFileName');
+        },
+
+        removeItemFromSessionStorage: function(item) {
+            sessionStorage.removeItem(item);
         }
 
     };

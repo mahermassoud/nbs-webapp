@@ -10,6 +10,30 @@
 angular.module('ndexCravatWebappApp')
   .service('utils', function (sharedProperties, cxNetworkUtils) {
     // AngularJS will instantiate a singleton by calling "new" on this function
+
+      const CRAVAT_ATTRIBUTES_MAP = {
+          'hugo symbol': 'HUGO_symbol',
+          'variants': 'Variants',
+          'number of variants': 'Number_of_variants',
+          'mupit link': 'MuPIT_Link',
+          'has a mutation in a tcga mutation cluster': 'Has_a_mutation_in_a_TCGA_Mutation_Cluster',
+          'most severe sequence ontology': 'Most_severe_sequence_ontology',
+          'cancer missense driver score (1 - chasm score)': 'Cancer_missense_driver_score_1_CHASM_score',
+          'chasm cancer driver composite p-value (missense)': 'CHASM_cancer_driver_composite_p_value_missense',
+          'chasm cancer driver fdr (missense)': 'CHASM_cancer_driver_FDR_missense',
+          'vest pathogenicity score (non-silent)': 'VEST_pathogenicity_score_non_silent',
+          'vest pathogenicity composite p-value (non-silent)': 'VEST_pathogenicity_composite_p_value_non_silent',
+          'vest pathogenicity fdr (non-silent)': 'VEST_pathogenicity_FDR_non_silent',
+          'driver genes': 'Driver_genes',
+          'target': 'TARGET',
+          'occurrences in cosmic': 'Occurrences_in_COSMIC',
+          'occurrences in cosmic by primary sites': 'Occurrences_in_COSMIC_by_primary_sites',
+          'pubmed articles': 'PubMed_articles',
+          'pubmed search term': 'PubMed_search_term',
+          'number of samples in study having the gene mutated': 'Number_of_samples_in_study_having_the_gene_mutated',
+          'chasm score available': 'CHASM_score_available',
+          'vest score available': 'VEST_score_available'
+      };
     
     const CRAVAT_VISUAL_STYLE = [
       {
@@ -50,13 +74,17 @@ angular.module('ndexCravatWebappApp')
       {
         selector: 'node[inQuery = "true"]',
         style: {
-          'border-color': 'red'
+            'border-color': 'red',
+            'color': 'blue',
+            'border-width' : '5px'
         }
       },
         {
-            selector: 'node[VEST pathogenicity score (non-silent)]',
+            selector: 'node[VEST_pathogenicity_score_non_silent]',
             style: {
-                'background-color': 'mapData(VEST pathogenicity score (non-silent), 0, 1, rgb(255,0,0), rgb(128,128,128))'
+                'background-color': 'mapData(VEST_pathogenicity_score_non_silent, 1, 0, rgb(255,0,0), rgb(128,128,128))',
+                'border-color': 'blue',
+                'border-width' : '5px'
             }
         }
     ];
@@ -113,8 +141,9 @@ angular.module('ndexCravatWebappApp')
                     var cravatDataValue = isNaN(cravatDataEntry[cravatEntryKey]) ?
                         cravatDataEntry[cravatEntryKey] :
                         parseFloat(cravatDataEntry[cravatEntryKey]);
-
-                    cxNetworkUtils.setNodeAttribute(niceCX, nodeId, cravatEntryKey, cravatDataValue);
+                    
+                    var cravatEntryKeyMapped = CRAVAT_ATTRIBUTES_MAP[cravatEntryKey.toLowerCase()];
+                    cxNetworkUtils.setNodeAttribute(niceCX, nodeId, cravatEntryKeyMapped, cravatDataValue);
                 }
             }
         }

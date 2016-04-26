@@ -13,8 +13,8 @@ If a CRAVAT output file is used as the input, the CRAVAT annotations are also ma
 - Click the "Load Cravat TSV file" button.
 - Select a CRAVAT gene report output file (a TSV format file) from you local file system
 - The selected file will be loaded and parsed, extracting a list of query genes and associated annotations.
-- The list of genes are added to the gene list panel in the top right of the page and the enrichment query is automatically performed.
-- The search results are displayed on the left panel. (The uploaded file contents and the datastructure linking genes to attributes are also displayed below the search results)
+- The list of genes are added to the gene list panel in the top left of the page and the enrichment query is automatically performed.
+- The search results are displayed on the right panel. (The uploaded file contents and the datastructure linking genes to attributes are also displayed below the search results)
 - Click on "View Network" for any search result to display the network in a new browser tab.
 - The application marks the nodes that contain VEST pathogenicity score (non-silent) with red.  The intensity of red depends on the value of VEST pathogenicity score (non-silent).
 

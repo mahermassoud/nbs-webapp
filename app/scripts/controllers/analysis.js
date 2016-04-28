@@ -27,6 +27,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
         $scope.fileContent = undefined;
         $scope.fileContentInJSON = undefined;
         $scope.uploadedFileName = undefined;
+        $scope.currentCravatFileName = sharedProperties.getCravatFileName();
 
          // Function ran when submit is clicked
         $scope.submit = function() {
@@ -146,6 +147,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             $scope.fileContentInJSON = undefined;
             $scope.uploadedFileName = undefined;
         };
+        
+        $scope.unloadCravatData = function() {
+            sharedProperties.removeItemFromSessionStorage('cravatFileName');
+            sharedProperties.removeItemFromSessionStorage('cravatData');
+            $scope.currentCravatFileName = sharedProperties.getCravatFileName();
+        };
 
       // Takes response from POST request to enrichment service and returns a list object that represents enriched
       // network, including name, UUID, Overlap etc
@@ -207,17 +214,17 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
      ((networkOverlap) ? ( '<strong>           Overlap : </strong>' + networkOverlap + '<br />') : ('')) +
 
 
-                           '<strong>          Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
-                                networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
+//                           '<strong>          Retrieve : </strong><a target="_blank" href="http://dev2.ndexbio.org/rest/network/' +
+//                                networkUUID + '/asCX">Get Network in CX format</a>' + '<br />' +
 
-                           '<strong>         Translate : </strong><a target="_blank" href="#/viewnicecx/' +
-                                networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
+//                           '<strong>         Translate : </strong><a target="_blank" href="#/viewnicecx/' +
+//                                networkUUID + '">Translate network to Nice CX format</a>' + '<br />' +
 
-                           '<strong>        Mark Nodes : </strong><a target="_blank" href="#/markNiceCX/' +
-                                networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
+//                           '<strong>        Mark Nodes : </strong><a target="_blank" href="#/markNiceCX/' +
+//                                networkUUID + '">Mark inQuery Nodes in Nice CX </a>' + '<br />' +
 
-                           '<strong> Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
-                                networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
+//                           '<strong> Nice CX -> Raw CX : </strong><a target="_blank" href="#/niceCXtoRawCX/' +
+//                                networkUUID + '">Translate Nice CX with Marked Nodes back to Raw CX </a>' + '<br />' +
 
                    //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
                    //            'View Original Network</a>' + '<br />' +
@@ -229,9 +236,14 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           return list;
        };
 
-        $scope.onFileUpload = function (element) {
+        $scope.onFileUpload = function (inputElement) {
             $scope.$apply(function () {
-                var file = element.files[0];
+                var file = inputElement.files[0];
+
+                // clear a file input name from Angular JS ; we need to clear it
+                // because Chrome (unlike FireFox) will not load the same file 2 times in row
+                // unless we set the input element value to null
+                angular.element(inputElement).val(null);
 
                 fileInputService.readFileAsync(file).then(function (fileInputContent) {
 
@@ -263,6 +275,9 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                     // translate array of genes to map of genes with "HUGO symbol" values as keys
                     var mapOfGenes = $scope.normalizeArrayOfGenes(d3ParsedArray, 'HUGO symbol');
                     sharedProperties.setCravatData(mapOfGenes);
+
+                    sharedProperties.setCravatFileName(file.name);
+                    $scope.currentCravatFileName = sharedProperties.getCravatFileName();
 
                     $scope.fileContentInJSON = JSON.stringify(mapOfGenes, null, 3);
 

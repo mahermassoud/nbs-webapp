@@ -54,8 +54,19 @@
 
             <div class="panel-body">
 
+                <div class="rowWith1emBottomPad" ng-show="currentCravatFileName">
+                    <label>Loaded Cravat File:</label> {{currentCravatFileName}}
+
+                    <input type="reset"
+                           class="btn btn-default"
+                           value="Unload Cravat Data"
+                           ng-click="unloadCravatData()" />
+                </div>
+
+                <div class="rowWith1emTopPad"></div>
+
                 <div>
-                    <label>Select File to Upload</label>
+                    <label>Select Cravat File to Load</label>
                 </div>
 
                 <!-- <input type="file" filelist-bind name="files"/> -->
@@ -68,13 +79,13 @@
                            style="display:none;"
                            onchange="angular.element(this).scope().onFileUpload(this)" />
 
-                    Choose TSV File ...
+                    Load Cravat TSV File ...
                 </label>
 
                 <input type="reset"
                        class="btn btn-default"
                        ng-show="fileContent || fileContentInJSON"
-                       value="Clear"
+                       value="Clear Contents Panel"
                        ng-click="clearFileContent()" />
 
             </div>

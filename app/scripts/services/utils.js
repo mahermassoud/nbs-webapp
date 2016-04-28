@@ -34,7 +34,7 @@ angular.module('ndexCravatWebappApp')
           'chasm score available': 'CHASM_score_available',
           'vest score available': 'VEST_score_available'
       };
-    
+
     const CRAVAT_VISUAL_STYLE = [
       {
         selector: 'node',
@@ -88,20 +88,43 @@ angular.module('ndexCravatWebappApp')
             }
         }
     ];
-    
+
     this.getCravatVisualizeStyle = function () {
       return CRAVAT_VISUAL_STYLE;
     };
 
 
+    /**
+     * Marks nodes that are in the query with a inQuery=true CX attribute
+     * @param niceCX representation of network
+     * @param networkUUID NDEx Id of same network
+       */
     this.markInQueryNodes = function (niceCX, networkUUID) {
+      var query = sharedProperties.getQueryNames();
+
+      //Iterate through niceCX and mark nodes in query with inquery=true
+      for(var i = 0; i < niceCX.nodes.elements.length; i++) {
+
+        console.log(niceCX.nodes.elements[i].n);
+        // If niceCX network contains a query node, mark it as inQuery=true
+        if ( query.includes(niceCX.nodes.elements[i].n) ) {
+          niceCX.nodeAttributes.nodes[i]["inQuery"] = true;  
+        }
+
+      }
+
+      console.log(query);
+
+    };
+    // OLD version from ndex-cravat-webapp, uncomment to gain that functionality
+    /*this.markInQueryNodes = function (niceCX, networkUUID) {
         var overlappedIDs = getOverlappedIDsForNetwork(networkUUID);
 
         for (var i = 0; i < overlappedIDs.length; i++) {
             var nodeId = overlappedIDs[i];
             cxNetworkUtils.setNodeAttribute(niceCX, nodeId, 'inQuery', 'true');
         }
-    };
+    };*/
 
 
     this.addCravatAttributesToCX = function (niceCX, networkUUID) {
@@ -141,7 +164,7 @@ angular.module('ndexCravatWebappApp')
                     var cravatDataValue = isNaN(cravatDataEntry[cravatEntryKey]) ?
                         cravatDataEntry[cravatEntryKey] :
                         parseFloat(cravatDataEntry[cravatEntryKey]);
-                    
+
                     var cravatEntryKeyMapped = CRAVAT_ATTRIBUTES_MAP[cravatEntryKey.toLowerCase()];
                     cxNetworkUtils.setNodeAttribute(niceCX, nodeId, cravatEntryKeyMapped, cravatDataValue);
                 }
@@ -150,7 +173,12 @@ angular.module('ndexCravatWebappApp')
     };
 
 
-
+    /**
+     *
+     *
+     * @param networkUUID NDEx UUID of network we are checking for overlap
+     * @returns {Array} of node IDs that are found in both query and NDEx network
+       */
     var getOverlappedIDsForNetwork = function(networkUUID) {
 
         var overlappedIDs = [];
@@ -172,5 +200,18 @@ angular.module('ndexCravatWebappApp')
 
         return overlappedIDs;
     };
+
+      /**
+       * Function that returns overlapping IDs between a query and an NDEx network
+       * @param query list of query nodes by name, not ID
+       * @param networkUUID NDEx UUId of network we are checking for overlap
+       */
+    var getOverlappedIDs = function(query, networkUUID) {
+        var overlappedIDs = [];
+
+
+
+
+    }
 
   });

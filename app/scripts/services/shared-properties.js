@@ -48,6 +48,24 @@ angular.module('ndexCravatWebappApp')
 
         removeItemFromSessionStorage: function(item) {
             sessionStorage.removeItem(item);
+        },
+
+
+        /**
+         * Saves an array of names put into query
+         * @param queryNames array of query names
+         */
+        setQueryNames: function (queryNames) {
+          var jsonObj = JSON.stringify(queryNames);
+          sessionStorage.setItem('queryNames', jsonObj);
+        },
+
+      /**
+       * Returns query names that were previously saved
+       */
+        getQueryNames: function () {
+          var queryNames = JSON.parse(sessionStorage.getItem('queryNames'));
+          return queryNames;
         }
 
     };

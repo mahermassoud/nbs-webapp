@@ -113,7 +113,7 @@ angular.module('ndexCravatWebappApp')
               var cyLayout = {name: layoutName};
 
               cyService.initCyGraphFromCyjsComponents(cyElements, cyLayout, utils.getCravatVisualizeStyle());
-              cyService.highlightNodes("");
+              //cyService.highlightNodes("");
 
               /*----------------------------------
 

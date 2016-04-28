@@ -81,15 +81,17 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             );
           }
           // else, we are using Massoud's nbs app
-          // simply visualizes network
           else {
             // random UUID for testing purposes
             var SAMPLE_UUID = "575ee3e8-c3a3-11e5-8fbc-06603eb7f303";
 
+            // Save query for retrieval by visualizeEnriched service
+            sharedProperties.setQueryNames(list);
+
             var vizLink = '<a href="#/visualizeEnriched/' +  SAMPLE_UUID +
               '">View Network</a>';
             rankedNetworksList.responseJSON = vizLink;
-             
+
           }
 
 
@@ -147,7 +149,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             $scope.fileContentInJSON = undefined;
             $scope.uploadedFileName = undefined;
         };
-        
+
         $scope.unloadCravatData = function() {
             sharedProperties.removeItemFromSessionStorage('cravatFileName');
             sharedProperties.removeItemFromSessionStorage('cravatData');
@@ -229,7 +231,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
                    //        '<strong>Visualize Original : </strong><a target="_blank" href="#/visualizeOriginal/' + networkUUID + '">' +
                    //            'View Original Network</a>' + '<br />' +
                             // target=_blank makes it so new tab opens
-                           '<strong>         Visualize : </strong><a target="_blank" href="#/visualizeEnriched/' + networkUUID + '">' +
+                           '<strong>         Visualize : </strong><a href="#/visualizeEnriched/' + networkUUID + '">' +
                                'View Network</a>';
           }
 

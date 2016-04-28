@@ -57,10 +57,44 @@ angular.module('ndexCravatWebappApp')
           }
         }
       ];
-      
+
       // Style applied to nodes that are highlighted, should be the same as DEF_VISUAL_STYLE except "background-color"
       const NODE_HIGHLIGHT_STYLE = [
-        
+        {
+          selector: 'node',
+          style: {
+            'background-color': 'rgb(255, 0, 0)',
+            'background-opacity': 0.8,
+            'width': '40px',
+            'height': '40px',
+            'label': 'data(name)',
+            'font-family': 'Roboto, sans-serif'
+          }
+        },
+        {
+          selector: 'edge',
+          style: {
+            'line-color': '#aaaaaa',
+            'width': '2px',
+            'label': 'data(interaction)',
+            'font-family': 'Roboto, sans-serif',
+            'text-opacity': 0.8
+          }
+        },
+        {
+          selector: 'node:selected',
+          style: {
+            'background-color': 'yellow'
+          }
+        },
+        {
+          selector: 'edge:selected',
+          style: {
+            'line-color': 'yellow',
+            'width': 6
+          }
+        }
+
       ]
 
       factory.getDefaultStyle = function(){
@@ -364,6 +398,7 @@ angular.module('ndexCravatWebappApp')
               // load data to cy-service
               //this.setCyjsNetwork(cyjsData);
             }
+
           });
 
         }); // on dom ready
@@ -415,7 +450,6 @@ angular.module('ndexCravatWebappApp')
         }
 
         cy.style(visualStyle);
-
         cy.layout({name: layout});
 
         // set the cytoscsape instance elements
@@ -432,13 +466,30 @@ angular.module('ndexCravatWebappApp')
       };
 
       /**
-       * Takes in a list of node LABELS and highlights them by 
+       * Takes in a list of node LABELS and highlights them by
        * setting their style to NODE_HIGHLIGHT_STYLE
        * (NODE_HIGHLIGHT_STYLE) is the same as default style except it has a different
        * body color
-       * @param nodesToHighlight list of names of nodes that we want to hilight
+       * @param nodesToHighlight list of labels of nodes that we want to hilight
+       * NOTE currently in testing state--testing on hardcoding labels
        */
       factory.highlightNodes = function(nodesToHighlight) {
+        // Get collection of nodes whose labels are in nodesToHighlight
+        //var queryNodes = cy.nodes("[label == 'GO_0008023']");
+        /*cy.style().selector("[label == 'GO_0008023']").style({
+          'background-color': 'red'
+        }).update();*/
+
+        // Select by id, works!
+        /*cy.style().selector('#357711').style({
+         'background-color': 'red'
+         }).update();*/
+
+        cy.style().selector('#357711').style({
+         'background-color': 'red'
+         }).update();
+
+
 
       }
 

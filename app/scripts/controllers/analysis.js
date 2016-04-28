@@ -88,6 +88,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             var vizLink = '<a href="#/visualizeEnriched/' +  SAMPLE_UUID +
               '">View Network</a>';
             rankedNetworksList.responseJSON = vizLink;
+             
           }
 
 

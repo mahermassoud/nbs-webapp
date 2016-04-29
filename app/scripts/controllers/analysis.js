@@ -17,11 +17,13 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
        //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
        // auto init textbox to contain these :: analysis.html line 15
-       rankedNetworksList.geneList = 'AURKB, BRCA1, PCNA, AKT1, ITGB2';
+       //rankedNetworksList.geneList = 'AURKB, BRCA1, PCNA, AKT1, ITGB2';
+       rankedNetworksList.geneList = 'GO_0031011, GO_0000790, GO_0043601';
+       //rankedNetworksList.geneList = 'GO_0031011, GO_0000790, GO_0008622';
 
         // eSets should be filled dynamically
         // Select which network to search
-       rankedNetworksList.eSets = ['cravat_nci', 'rudi_test', 'ovarian'];
+       rankedNetworksList.eSets = ['ovarian', 'cravat_nci', 'rudi_test'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
         $scope.fileContent = undefined;

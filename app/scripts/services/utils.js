@@ -105,10 +105,11 @@ angular.module('ndexCravatWebappApp')
       //Iterate through niceCX and mark nodes in query with inquery=true
       for(var i = 0; i < niceCX.nodes.elements.length; i++) {
 
-        console.log(niceCX.nodes.elements[i].n);
-        // If niceCX network contains a query node, mark it as inQuery=true
+        //console.log(niceCX.nodes.elements[i].n);
+        //console.log("id: " + niceCX.nodes.elements[i]['@id']);
+        // If niceCX network contains a query node at index i, mark it as inQuery=true
         if ( query.includes(niceCX.nodes.elements[i].n) ) {
-          niceCX.nodeAttributes.nodes[i]["inQuery"] = true;  
+          cxNetworkUtils.setNodeAttribute(niceCX, niceCX.nodes.elements[i]['@id'],"inQuery", "true", String);
         }
 
       }

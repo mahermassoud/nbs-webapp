@@ -20,7 +20,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
         // eSets should be filled dynamically
         // Select which network to search
-       rankedNetworksList.eSets = ['ovarian', 'cravat_nci', 'rudi_test'];
+       rankedNetworksList.eSets = ['Ovarian Cancer'];
        rankedNetworksList.eSetSelected = rankedNetworksList.eSets[0];
 
         $scope.fileContent = undefined;
@@ -43,7 +43,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           var myJsonString = JSON.stringify(myObj);
 
           // if we are using vlad's networks
-          if(rankedNetworksList.eSetSelected != "ovarian") {
+          if(rankedNetworksList.eSetSelected != "Ovarian Cancer") {
 
             // HTTP header for request to enrichment service
             var req = {
@@ -87,7 +87,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             // Save query for retrieval by visualizeEnriched service
             sharedProperties.setQueryNames(list);
 
-            var vizLink = '<a href="#/visualizeEnriched/' + SAMPLE_UUID +
+            var vizLink = '<a target="blank" href="#/visualizeEnriched/' + SAMPLE_UUID +
               '">View Network</a>';
             rankedNetworksList.responseJSON = vizLink;
 

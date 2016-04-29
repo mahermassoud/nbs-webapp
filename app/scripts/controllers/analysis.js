@@ -15,11 +15,8 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
        var rankedNetworksList = $scope.rankedNetworksList;
        rankedNetworksList.responseJSON = undefined;
 
-       //rankedNetworksList.geneList = 'LAMB2, LAMB3, CD81, TSP2, TSP1, BRAF, UB2D3, EWS, CSTF1, CDK2';
-       // auto init textbox to contain these :: analysis.html line 15
-       //rankedNetworksList.geneList = 'AURKB, BRCA1, PCNA, AKT1, ITGB2';
-       rankedNetworksList.geneList = 'GO_0031011, GO_0000790, GO_0043601';
-       //rankedNetworksList.geneList = 'GO_0031011, GO_0000790, GO_0008622';
+       // auto init textbox to contain these
+       rankedNetworksList.geneList = 'TTN, CACNA1A, RIMS1';
 
         // eSets should be filled dynamically
         // Select which network to search
@@ -85,12 +82,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           // else, we are using Massoud's nbs app
           else {
             // random UUID for testing purposes
-            var SAMPLE_UUID = "575ee3e8-c3a3-11e5-8fbc-06603eb7f303";
-
+            var SAMPLE_UUID = "8a047651-0bd0-11e6-b550-06603eb7f303";
+            
             // Save query for retrieval by visualizeEnriched service
             sharedProperties.setQueryNames(list);
 
-            var vizLink = '<a href="#/visualizeEnriched/' +  SAMPLE_UUID +
+            var vizLink = '<a href="#/visualizeEnriched/' + SAMPLE_UUID +
               '">View Network</a>';
             rankedNetworksList.responseJSON = vizLink;
 

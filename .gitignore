@@ -6,6 +6,7 @@ sync.sh
 /.sass-cache
 /bower_components
 /test_files
+/app/scripts/controllers/network-id.js
 
 .idea/workspace.xml
 ./dist/*

@@ -11,6 +11,12 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
 
     function ($scope, $http, sharedProperties, webServices, fileInputService) {
 
+      // Read in tsv files as adjacency key value pairs patientID:list<geneIDs>
+      // where geneIDs are mutations for that patient
+
+      // Filename of TCGA mutation tsv stored on local machine
+      var TCGA_MUT = "test_files/NBS1_TCGA_binGeno.csv";
+
        $scope.rankedNetworksList = {};
        var rankedNetworksList = $scope.rankedNetworksList;
        rankedNetworksList.responseJSON = undefined;
@@ -83,7 +89,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
           else {
             // random UUID for testing purposes
             var SAMPLE_UUID = "8a047651-0bd0-11e6-b550-06603eb7f303";
-            
+
             // Save query for retrieval by visualizeEnriched service
             sharedProperties.setQueryNames(list);
 
@@ -290,5 +296,30 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             });
         };
 
+      $scope.onStartFileUpload = function (inputElement) {
+        $scope.$apply(function () {
+          var file = inputElement.files[0];
+
+          // clear a file input name from Angular JS ; we need to clear it
+          // because Chrome (unlike FireFox) will not load the same file 2 times in row
+          // unless we set the input element value to null
+          angular.element(inputElement).val(null);
+
+          fileInputService.readFileAsync(file).then(function (fileInputContent) {
+
+            $scope.fileContent = fileInputContent;
+
+            var d3ParsedArray = d3.tsv.parse(fileInputContent);
+
+            $scope.startFileContent = d3ParsedArray;
+
+            $scope.submit();
+          });
+
+          $scope.uploadedFileName = file.name;
+
+        });
+
+      };
 
    });

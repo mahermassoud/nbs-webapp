@@ -82,6 +82,16 @@
                     Load Cravat TSV File ...
                 </label>
 
+                  <label class="btn btn-primary" for="start-file-selector">
+                    <input id="start-file-selector"
+                           type="file"
+                           name="start_files[]"
+                           style="display:none;"
+                           onchange="angular.element(this).scope().onStartFileUpload(this)" />
+
+                    Load starter csv files...
+                  </label>
+
                 <input type="reset"
                        class="btn btn-default"
                        ng-show="fileContent || fileContentInJSON"
@@ -89,6 +99,25 @@
                        ng-click="clearFileContent()" />
 
             </div>
+
+        </div>
+
+        <div class="panel panel-info">
+
+          <div class="panel-heading">
+            Select genes to compare
+          </div>
+
+          <div class="panel-body">
+
+            <table>
+              <tr>
+
+              </tr>
+            </table>
+
+          </div>
+
 
         </div>
 

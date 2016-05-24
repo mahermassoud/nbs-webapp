@@ -296,6 +296,10 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             });
         };
 
+      /**
+       * Function called when "Load starter csv files" button is clicked
+       * @param inputElement
+         */
       $scope.onStartFileUpload = function (inputElement) {
         $scope.$apply(function () {
           var file = inputElement.files[0];
@@ -312,6 +316,7 @@ angular.module('ndexCravatWebappApp').controller('AnalysisCtrl',
             var d3ParsedArray = d3.tsv.parse(fileInputContent);
 
             $scope.startFileContent = d3ParsedArray;
+
 
             $scope.submit();
           });

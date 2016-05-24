@@ -1,0 +1,5 @@
+read.csv("Node_attributes.csv")
+df = read.csv("Node_attributes.csv")
+df
+view(df)
+View(df)
